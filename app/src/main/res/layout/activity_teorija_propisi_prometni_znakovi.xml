@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".TeorijaPropisiPrometniZnakovi">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffcc00"
+            android:elevation="10dp"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="175dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/prst_icon" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bungee"
+                android:text="Odaberi kategoriju prometnih znakova koju želiš učiti:"
+                android:textColor="#132131"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout10">
+
+            <Button
+                android:id="@+id/btnZnakoviIzricitihNaredbiTeorija"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="#ffcc00"
+                android:padding="30dp"
+                android:text="Znakovi Izrčitih naredbi"
+                android:textAllCaps="false"
+                android:textColor="#132131"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:transitionName="logo_image_znakovi"
+                app:layout_constraintBottom_toTopOf="@+id/btnZnakoviOpasnostiTeorija"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout10" />
+
+            <Button
+                android:id="@+id/btnZnakoviOpasnostiTeorija"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="#ffcc00"
+                android:padding="30dp"
+                android:text="Znakovi Opasnosti"
+                android:textAllCaps="false"
+                android:textColor="#132131"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:transitionName="logo_image_znakovi"
+                app:layout_constraintBottom_toTopOf="@+id/btnZnakoviObavijestiTeorija"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/btnZnakoviObavijestiTeorija"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="#ffcc00"
+                android:padding="30dp"
+                android:text="Znakovi obavijesti"
+                android:textAllCaps="false"
+                android:textColor="#132131"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:transitionName="logo_image_znakovi"
+                app:layout_constraintBottom_toTopOf="@+id/btnZnakoviObavijestiItdTeorija"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/btnZnakoviObavijestiItdTeorija"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="#ffcc00"
+                android:padding="30dp"
+                android:text="Znakovi obavijesti za vođenje prometa"
+                android:textAllCaps="false"
+                android:textColor="#132131"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:transitionName="logo_image_znakovi"
+                app:layout_constraintBottom_toTopOf="@+id/btnDopunskePloceTeorija"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/btnDopunskePloceTeorija"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="#ffcc00"
+                android:padding="30dp"
+                android:text="Dopunske ploče"
+                android:textAllCaps="false"
+                android:textColor="#132131"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:transitionName="logo_image_znakovi"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

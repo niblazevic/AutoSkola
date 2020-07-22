@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ProlaznostIspit">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:srcCompat="@drawable/logo" />
+
+            <TextView
+                android:id="@+id/txtNaziv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rezultat ispita"
+                android:textColor="#132131"
+                android:textSize="30sp"
+                app:fontFamily="@font/bungee" />
+
+            <TextView
+                android:id="@+id/txtProlaznostRezultat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ispit je..."
+                android:textColor="#132131"
+                android:textSize="18sp"
+                app:fontFamily="sans-serif-medium" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout23"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout22">
+
+            <TextView
+                android:id="@+id/txtRazlog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Razlog:"
+                android:textColor="#132131"
+                android:textSize="24sp"
+                app:fontFamily="@font/bungee" />
+
+            <TextView
+                android:id="@+id/txtBrojBodovaDovoljno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Broj bodova nije dovoljno velik!"
+                android:textColor="#132131"
+                android:textSize="16sp"
+                app:fontFamily="sans-serif-medium" />
+
+            <TextView
+                android:id="@+id/txtTocnostRaskrizja"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                android:text="Raskrižja nisu točno riješena!"
+                android:textColor="#132131"
+                android:textSize="16sp"
+                app:fontFamily="sans-serif-medium" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtBrojBodova"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Broj bodova: "
+                    android:textColor="#132131"
+                    android:textSize="16sp"
+                    app:fontFamily="sans-serif-medium" />
+
+                <TextView
+                    android:id="@+id/txtBodovi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 / 120"
+                    android:textColor="#132131"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtTocnost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Točnost: "
+                    android:textColor="#132131"
+                    android:textSize="16sp"
+                    app:fontFamily="sans-serif-medium" />
+
+                <TextView
+                    android:id="@+id/txtTocnostPostotak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0%"
+                    android:textColor="#132131"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtPregledRezultata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:text="Detaljno rješenje ispita možete potražiti u rezultatima!"
+                android:textColor="#132131"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnIzlaz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/bungee"
+            android:text="Izlaz"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout23" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "483919828717",
+    "firebase_url": "https://autoskolav1.firebaseio.com",
+    "project_id": "autoskolav1",
+    "storage_bucket": "autoskolav1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483919828717:android:08794f6cbb4083123ddee4",
+        "android_client_info": {
+          "package_name": "com.example.autoskola"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483919828717-ptauba0is1vcob2s8b1fckpqeevk699f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBffad5OgxblzPX7r3AniC-MZ9tjSNFMUw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "483919828717-ptauba0is1vcob2s8b1fckpqeevk699f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483919828717:android:614ced22c08842773ddee4",
+        "android_client_info": {
+          "package_name": "com.example.autoskola_v1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483919828717-d2kcghkkqbcv2gjbsbmgstjqkajcq9lq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.autoskola_v1",
+            "certificate_hash": "2fad773718a8d475f9636be768f10c507d4baeb2"
+          }
+        },
+        {
+          "client_id": "483919828717-ptauba0is1vcob2s8b1fckpqeevk699f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBffad5OgxblzPX7r3AniC-MZ9tjSNFMUw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "483919828717-ptauba0is1vcob2s8b1fckpqeevk699f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

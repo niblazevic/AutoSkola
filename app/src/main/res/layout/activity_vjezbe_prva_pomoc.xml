@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".VjezbePrvaPomoc">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffcc00"
+            android:elevation="10dp"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgPrst"
+                android:layout_width="175dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/prst_icon" />
+
+            <TextView
+                android:id="@+id/txtOpis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bungee"
+                android:text="Odaberi set pitanja iz prve pomoći koje želiš vježbati:"
+                android:textColor="#132131"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+            <Button
+                android:id="@+id/btn1_22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="#ffcc00"
+                android:drawableLeft="@drawable/first_aid_kit_icon"
+                android:padding="10dp"
+                android:text="1. set pitanja"
+                android:textAllCaps="false"
+                android:textColor="#132131"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:transitionName="logo_image_set_1" />
+
+            <Button
+                android:id="@+id/btn23_44"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="#ffcc00"
+                android:drawableLeft="@drawable/bandage_icon"
+                android:padding="10dp"
+                android:text="2. set pitanja"
+                android:textAllCaps="false"
+                android:textColor="#132131"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:transitionName="logo_image_set_2" />
+
+            <Button
+                android:id="@+id/btn45_66"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="#ffcc00"
+                android:drawableLeft="@drawable/revive_icon"
+                android:padding="10dp"
+                android:text="3. set pitanja"
+                android:textAllCaps="false"
+                android:textColor="#132131"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:transitionName="logo_image_set_3" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

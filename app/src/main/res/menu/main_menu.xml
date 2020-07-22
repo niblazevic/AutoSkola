@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/navPromjenaPodataka"
+            android:icon="@drawable/promjena_podataka_icon"
+            android:title="Korisnički podaci" />
+
+        <item
+            android:id="@+id/navOdjava"
+            android:icon="@drawable/logout_icon"
+            android:title="Odjava" />
+
+    </group>
+</menu>

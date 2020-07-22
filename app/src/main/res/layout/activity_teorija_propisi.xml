@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".TeorijaPropisi">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffcc00"
+            android:elevation="10dp"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgPrst"
+                android:layout_width="175dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/prst_icon" />
+
+            <TextView
+                android:id="@+id/txtKategorija"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bungee"
+                android:text="Odaberi kategoriju propisa koju želiš učiti:"
+                android:textColor="#132131"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
+
+            <Button
+                android:id="@+id/btnOpcaPitanjaTeorija"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="#ffcc00"
+                android:drawableLeft="@drawable/opca_pitanja_icon"
+                android:drawingCacheQuality="auto"
+                android:padding="10dp"
+                android:text="Opća pitanja"
+                android:textAllCaps="false"
+                android:textColor="#132131"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:transitionName="logo_image_opca" />
+
+            <Button
+                android:id="@+id/btnPrometniZnakoviTeorija"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="#ffcc00"
+                android:drawableLeft="@drawable/prometni_znakovi_icon"
+                android:padding="10dp"
+                android:text="Prometni znakovi"
+                android:textAllCaps="false"
+                android:textColor="#132131"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnPropustanjeVozilaItdTeorija"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="#ffcc00"
+                android:drawableLeft="@drawable/propustanje_vozila_itd_icon"
+                android:padding="10dp"
+                android:text="Propuštanje vozila i prednost prolaska"
+                android:textAllCaps="false"
+                android:textColor="#132131"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:transitionName="logo_image_prop" />
+
+            <Button
+                android:id="@+id/btnOpasneSituacijeTeorija"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="#ffcc00"
+                android:drawableLeft="@drawable/opasne_situacije_icon"
+                android:padding="10dp"
+                android:text="Opasne situacije"
+                android:textAllCaps="false"
+                android:textColor="#132131"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:transitionName="logo_image_opasne" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
