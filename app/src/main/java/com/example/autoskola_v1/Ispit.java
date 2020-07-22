@@ -807,8 +807,8 @@ public class Ispit extends AppCompatActivity {
 
                     final Dialog dialog = new Dialog(Ispit.this);
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
                     dialog.setContentView(R.layout.obavijest_ispit);
+                    dialog.setCancelable(false);
 
                     Button btnDialog = dialog.findViewById(R.id.btnPokreniIspit);
                     btnDialog.setOnClickListener(new View.OnClickListener() {
@@ -833,8 +833,8 @@ public class Ispit extends AppCompatActivity {
                 ucitavanje.makniUcitavanje();
                 final Dialog dialog = new Dialog(Ispit.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
                 dialog.setContentView(R.layout.obavijest_ispit);
+                dialog.setCancelable(false);
 
                 Button btnDialog = dialog.findViewById(R.id.btnPokreniIspit);
                 btnDialog.setOnClickListener(new View.OnClickListener() {
