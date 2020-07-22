@@ -327,8 +327,8 @@ public class VjezbePitanja extends AppCompatActivity {
 
                     final Dialog dialog = new Dialog(VjezbePitanja.this);
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
                     dialog.setContentView(R.layout.obavijest);
+                    dialog.setCancelable(false);
 
                     Button btnDialog = dialog.findViewById(R.id.btnPokreni);
                     btnDialog.setOnClickListener(new View.OnClickListener() {
@@ -357,8 +357,8 @@ public class VjezbePitanja extends AppCompatActivity {
 
                 final Dialog dialog = new Dialog(VjezbePitanja.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
                 dialog.setContentView(R.layout.obavijest);
+                dialog.setCancelable(false);
 
                 Button btnDialog = dialog.findViewById(R.id.btnPokreni);
                 btnDialog.setOnClickListener(new View.OnClickListener() {
