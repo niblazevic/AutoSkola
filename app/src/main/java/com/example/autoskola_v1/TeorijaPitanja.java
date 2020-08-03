@@ -23,6 +23,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -83,7 +84,6 @@ public class TeorijaPitanja extends AppCompatActivity {
 
         FireStoreListaPitanja = findViewById(R.id.FireStoreListaPitanja);
         fStore = FirebaseFirestore.getInstance();
-
 
         if(String.valueOf(getIntent().getStringExtra("IDDETALJNO")).equals("0")){
             query = fStore.collection("Pitanja").document(String.valueOf(getIntent().getStringExtra("IDKATEGORIJE"))).collection(String.valueOf(getIntent().getStringExtra("IDSETA")));

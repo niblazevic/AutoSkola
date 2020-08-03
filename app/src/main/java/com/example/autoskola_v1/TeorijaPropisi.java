@@ -17,9 +17,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 public class TeorijaPropisi extends AppCompatActivity {
 
@@ -42,62 +45,102 @@ public class TeorijaPropisi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(TeorijaPropisi.this,TeorijaPitanja.class);
-                intent.putExtra("KATEGORIJA", "Opća pitanja");
-                intent.putExtra("IDKATEGORIJE", "Kat1");
-                intent.putExtra("IDSETA","OpcaPitanja");
-                intent.putExtra("IDDETALJNO","0");
-                intent.putExtra("LOGO","logo_image_opca");
+                if(getIntent().getStringExtra("ADMIN")!=null){
+                    Intent intent = new Intent(TeorijaPropisi.this,EditiranjePitanja.class);
+                    intent.putExtra("KATEGORIJA", "Opća pitanja");
+                    intent.putExtra("IDKATEGORIJE", "Kat1");
+                    intent.putExtra("IDSETA","OpcaPitanja");
+                    intent.putExtra("IDDETALJNO","0");
+                    intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
 
-                Pair[] pairs = new Pair[1];
-                pairs[0] = new Pair<View, String>(btnOpcaPitanjaTeorija, "logo_image_opca");
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(TeorijaPropisi.this,TeorijaPitanja.class);
+                    intent.putExtra("KATEGORIJA", "Opća pitanja");
+                    intent.putExtra("IDKATEGORIJE", "Kat1");
+                    intent.putExtra("IDSETA","OpcaPitanja");
+                    intent.putExtra("IDDETALJNO","0");
+                    intent.putExtra("LOGO","logo_image_opca");
 
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(TeorijaPropisi.this, pairs);
-                startActivity(intent, options.toBundle());
+                    Pair[] pairs = new Pair[1];
+                    pairs[0] = new Pair<View, String>(btnOpcaPitanjaTeorija, "logo_image_opca");
+
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(TeorijaPropisi.this, pairs);
+                    startActivity(intent, options.toBundle());
+                }
             }
         });
 
         btnPrometniZnakoviTeorija.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TeorijaPropisi.this, TeorijaPropisiPrometniZnakovi.class);
-                startActivity(intent);
+
+                if(getIntent().getStringExtra("ADMIN")!=null){
+                    Intent intent = new Intent(TeorijaPropisi.this, TeorijaPropisiPrometniZnakovi.class);
+                    intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(TeorijaPropisi.this, TeorijaPropisiPrometniZnakovi.class);
+                    startActivity(intent);
+                }
             }
         });
 
         btnPropustanjeVozilaItdTeorija.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TeorijaPropisi.this, TeorijaPitanja.class);
-                intent.putExtra("KATEGORIJA", "Propuštanje vozila i prednost prolaska");
-                intent.putExtra("IDKATEGORIJE", "Kat1");
-                intent.putExtra("IDSETA","PropustanjeVozilaItd");
-                intent.putExtra("IDDETALJNO","0");
-                intent.putExtra("LOGO","logo_image_prop");
+                if(getIntent().getStringExtra("ADMIN")!=null){
+                    Intent intent = new Intent(TeorijaPropisi.this, EditiranjePitanja.class);
+                    intent.putExtra("KATEGORIJA", "Propuštanje vozila i prednost prolaska");
+                    intent.putExtra("IDKATEGORIJE", "Kat1");
+                    intent.putExtra("IDSETA","PropustanjeVozilaItd");
+                    intent.putExtra("IDDETALJNO","0");
+                    intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
 
-                Pair[] pairs = new Pair[1];
-                pairs[0] = new Pair<View, String>(btnPropustanjeVozilaItdTeorija, "logo_image_prop");
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(TeorijaPropisi.this, TeorijaPitanja.class);
+                    intent.putExtra("KATEGORIJA", "Propuštanje vozila i prednost prolaska");
+                    intent.putExtra("IDKATEGORIJE", "Kat1");
+                    intent.putExtra("IDSETA","PropustanjeVozilaItd");
+                    intent.putExtra("IDDETALJNO","0");
+                    intent.putExtra("LOGO","logo_image_prop");
 
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(TeorijaPropisi.this, pairs);
-                startActivity(intent, options.toBundle());
+                    Pair[] pairs = new Pair[1];
+                    pairs[0] = new Pair<View, String>(btnPropustanjeVozilaItdTeorija, "logo_image_prop");
+
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(TeorijaPropisi.this, pairs);
+                    startActivity(intent, options.toBundle());
+                }
             }
         });
 
         btnOpasneSituacijeTeorija.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TeorijaPropisi.this, TeorijaPitanja.class);
-                intent.putExtra("KATEGORIJA", "Opasne situacije");
-                intent.putExtra("IDKATEGORIJE", "Kat1");
-                intent.putExtra("IDSETA","OpasneSituacije");
-                intent.putExtra("IDDETALJNO","0");
-                intent.putExtra("LOGO","logo_image_opasne");
+                if(getIntent().getStringExtra("ADMIN")!=null){
+                    Intent intent = new Intent(TeorijaPropisi.this, EditiranjePitanja.class);
+                    intent.putExtra("KATEGORIJA", "Opasne situacije");
+                    intent.putExtra("IDKATEGORIJE", "Kat1");
+                    intent.putExtra("IDSETA","OpasneSituacije");
+                    intent.putExtra("IDDETALJNO","0");
+                    intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
 
-                Pair[] pairs = new Pair[1];
-                pairs[0] = new Pair<View, String>(btnOpasneSituacijeTeorija, "logo_image_opasne");
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(TeorijaPropisi.this, TeorijaPitanja.class);
+                    intent.putExtra("KATEGORIJA", "Opasne situacije");
+                    intent.putExtra("IDKATEGORIJE", "Kat1");
+                    intent.putExtra("IDSETA","OpasneSituacije");
+                    intent.putExtra("IDDETALJNO","0");
+                    intent.putExtra("LOGO","logo_image_opasne");
 
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(TeorijaPropisi.this, pairs);
-                startActivity(intent, options.toBundle());
+                    Pair[] pairs = new Pair[1];
+                    pairs[0] = new Pair<View, String>(btnOpasneSituacijeTeorija, "logo_image_opasne");
+
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(TeorijaPropisi.this, pairs);
+                    startActivity(intent, options.toBundle());
+                }
             }
         });
     }

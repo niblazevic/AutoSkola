@@ -9,6 +9,11 @@
             android:title="Korisnički podaci" />
 
         <item
+            android:id="@+id/navAdmin"
+            android:icon="@drawable/admin_icon"
+            android:title="Administracija pitanja" />
+
+        <item
             android:id="@+id/navOdjava"
             android:icon="@drawable/logout_icon"
             android:title="Odjava" />
