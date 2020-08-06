@@ -3,4 +3,14 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string-array name="tocanOdgovor">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>12</item>
+        <item>13</item>
+        <item>23</item>
+        <item>123</item>
+    </string-array>
 </resources>

@@ -48,6 +48,7 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
 
     FirebaseAuth fAuth;
     FirebaseStorage fStorage;
+    StorageReference storageReference;
 
     private RecyclerView RecyclerView;
     private RecyclerView.Adapter RecyclerViewAdapter;
@@ -71,6 +72,7 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
 
         fAuth = FirebaseAuth.getInstance();
         fStorage = FirebaseStorage.getInstance();
+        storageReference = fStorage.getReference();
 
         RecyclerView = findViewById(R.id.RecyclerViewListaPitanja);
         txtNaslov = findViewById(R.id.txtNaslov);
@@ -102,13 +104,14 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
             intent.putExtra("IDSETA", getIntent().getStringExtra("IDSETA"));
             intent.putExtra("IDDETALJNO", getIntent().getStringExtra("IDDETALJNO"));
             intent.putExtra("NAME", ListaPitanja.get(position).getName());
-            intent.putExtra("PITANJE", ListaPitanja.get(position).getName());
+            intent.putExtra("PITANJE", ListaPitanja.get(position).getPitanje());
             intent.putExtra("ODGOVOR1", ListaPitanja.get(position).getOdgovor1());
             intent.putExtra("ODGOVOR2", ListaPitanja.get(position).getOdgovor2());
             intent.putExtra("ODGOVOR3", ListaPitanja.get(position).getOdgovor3());
             intent.putExtra("TOCANODGOVOR", String.valueOf(ListaPitanja.get(position).getTocanOdgovor()));
             intent.putExtra("SLIKA", ListaPitanja.get(position).getSlika());
             startActivity(intent);
+            finish();
         }else{
 
             DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -142,6 +145,10 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
                     String IDseta = getIntent().getStringExtra("IDSETA");
 
                     String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/BrojPitanja/" + IDseta;
+                    if(!getIntent().getStringExtra("IDDETALJNO").equals("0")){
+                        url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/BrojPitanja/" + IDseta + "/Pitanja/" + getIntent().getStringExtra("IDDETALJNO");
+                    }
+
                     String auth = "Bearer " + task.getResult().getToken();
 
 
@@ -152,7 +159,7 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
                     client.newCall(request).enqueue(new Callback() {
                         @Override
                         public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                            e.printStackTrace();
+                            Toast.makeText(EditiranjePitanja.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -191,6 +198,10 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
                     String IDseta = getIntent().getStringExtra("IDSETA");
 
                     String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/BrojPitanja/" + IDseta;
+                    if(!getIntent().getStringExtra("IDDETALJNO").equals("0")){
+                        url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/BrojPitanja/" + IDseta + "/Pitanja/" + getIntent().getStringExtra("IDDETALJNO");
+                    }
+
                     String auth = "Bearer " + task.getResult().getToken();
 
                     final int temp = Integer.parseInt(broj);
@@ -264,12 +275,11 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
 
                         Request request = new Request.Builder().addHeader("Authorization", auth).url(url).build();
 
-
                         Response responses = null;
                         client.newCall(request).enqueue(new Callback() {
                             @Override
                             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                                e.printStackTrace();
+                                Toast.makeText(EditiranjePitanja.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -285,11 +295,12 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
                                                 JSONObject jsonObject = new JSONObject(myResponse);
                                                 JSONArray jsonArray = jsonObject.getJSONArray("documents");
 
-                                                if(jsonArray.length() < 20){
+                                                if(jsonArray.length() <= 19){
                                                     pageToken = "0";
                                                 }else{
                                                     pageToken = jsonObject.getString("nextPageToken");
                                                 }
+
 
                                                 for (int i = 0; i < jsonArray.length(); i++){
                                                     JSONObject jsonObject2 = jsonArray.getJSONObject(i);
@@ -345,6 +356,10 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
                         String IDseta = getIntent().getStringExtra("IDSETA");
 
                         String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/" + IDseta + "/Pitanje" + brojPitanja;
+                        if(!getIntent().getStringExtra("IDDETALJNO").equals("0")){
+                            url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/"+ Kategorija +"/"+ IDseta + "/"+ getIntent().getStringExtra("IDDETALJNO") +"/Pitanja/Pitanje" + brojPitanja;
+                        }
+
                         String auth = "Bearer " + task.getResult().getToken();
 
 
@@ -402,6 +417,10 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
                     String IDseta = getIntent().getStringExtra("IDSETA");
 
                     String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/" + IDseta + "/" + getName;
+                    if(!getIntent().getStringExtra("IDDETALJNO").equals("0")){
+                        url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/"+ Kategorija +"/"+ IDseta + "/"+ getIntent().getStringExtra("IDDETALJNO") +"/Pitanja/" + getName;
+                    }
+
                     String auth = "Bearer " + task.getResult().getToken();
 
                     String json = "{\n" +
@@ -467,6 +486,10 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
                     String IDseta = getIntent().getStringExtra("IDSETA");
 
                     String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/" + IDseta + "/Pitanje" + brojPitanja + "?currentDocument.exists=true";
+                    if(!getIntent().getStringExtra("IDDETALJNO").equals("0")){
+                        url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/"+ Kategorija +"/"+ IDseta + "/"+ getIntent().getStringExtra("IDDETALJNO") +"/Pitanja/Pitanje" + brojPitanja + "?currentDocument.exists=true";
+                    }
+
                     String auth = "Bearer " + task.getResult().getToken();
 
 
@@ -503,165 +526,3 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
         ucitavanje("0", false, "", "");
     }
 }
-
-/*
-KOD ZA UCITAVANJE JEDNOG PITANJA
-
-                                        try {
-                                            JSONObject jsonObject = new JSONObject(myResponse);
-                                            JSONObject jsonObject2 = jsonObject.getJSONObject("fields");
-                                            JSONObject jsonObject3 = jsonObject2.getJSONObject("Pitanje");
-                                            JSONObject jsonObject4 = jsonObject2.getJSONObject("Odgovor1");
-                                            JSONObject jsonObject5 = jsonObject2.getJSONObject("Odgovor2");
-                                            JSONObject jsonObject6 = jsonObject2.getJSONObject("Odgovor3");
-                                            JSONObject jsonObject7 = jsonObject2.getJSONObject("TocanOdgovor");
-                                            JSONObject jsonObject8 = jsonObject2.getJSONObject("Slika");
-                                            Toast.makeText(EditiranjePitanja.this, jsonObject7.getString("integerValue"), Toast.LENGTH_SHORT).show();
-
-                                        }catch (JSONException err){
-                                            Toast.makeText(EditiranjePitanja.this, err.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-
-FUNKCIONALNI DELETE
-fAuth.getCurrentUser().getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-            @Override
-            public void onComplete(@NonNull Task<GetTokenResult> task) {
-                if (task.isSuccessful()) {
-
-                    String Kategorija = getIntent().getStringExtra("IDKATEGORIJE");
-                    String IDseta = getIntent().getStringExtra("IDSETA");
-
-                    String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/Kat1/OpcaPitanja/Pitanje91?currentDocument.exists=true";
-                    String auth = "Bearer " + task.getResult().getToken();
-
-
-                    OkHttpClient client = new OkHttpClient();
-
-
-                    final Request request = new Request.Builder().addHeader("Authorization", auth).addHeader("Accept", "application/json").addHeader("Content-Type", "application/json").url(url).build();
-
-                    client.newCall(request).enqueue(new Callback() {
-                        @Override
-                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        @Override
-                        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                            if(response.isSuccessful()){
-                                final String myResponse = Objects.requireNonNull(response.body()).string();
-
-                                EditiranjePitanja.this.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        textView14.setText(myResponse);
-                                    }
-                                });
-                            }
-                        }
-                    });
-                }
-            }
-        });
-
-FUNKCIONALNI GET
-
-fAuth.getCurrentUser().getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-            @Override
-            public void onComplete(@NonNull Task<GetTokenResult> task) {
-                if (task.isSuccessful()) {
-
-                    String Kategorija = getIntent().getStringExtra("IDKATEGORIJE");
-                    String IDseta = getIntent().getStringExtra("IDSETA");
-
-                    String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/Kat1/OpcaPitanja/Pitanje88";
-                    String auth = "Bearer " + task.getResult().getToken();
-
-
-                    OkHttpClient client = new OkHttpClient();
-
-                    RequestBody formBody = new FormBody.Builder()
-                            .add("message", "Your message")
-                            .add("message", "Your message")
-                            .build();
-
-                    final Request request = new Request.Builder().addHeader("Authorization", auth).url(url).build();
-
-                    client.newCall(request).enqueue(new Callback() {
-                        @Override
-                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        @Override
-                        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                            if(response.isSuccessful()){
-                                final String myResponse = Objects.requireNonNull(response.body()).string();
-
-                                EditiranjePitanja.this.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        textView14.setText(myResponse);
-                                    }
-                                });
-                            }
-                        }
-                    });
-                }
-            }
-        });
-
-FUNKCIONALNI CREATE I UPDATE
-
-fAuth.getCurrentUser().getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-            @Override
-            public void onComplete(@NonNull Task<GetTokenResult> task) {
-                if (task.isSuccessful()) {
-
-                    String Kategorija = getIntent().getStringExtra("IDKATEGORIJE");
-                    String IDseta = getIntent().getStringExtra("IDSETA");
-
-                    String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/Kat1/OpcaPitanja/Pitanje90";
-                    String auth = "Bearer " + task.getResult().getToken();
-
-                    String json = "{\n" +
-                            "  \"fields\": {\n" +
-                            "    \"asdas\": {\n" +
-                            "      \"stringValue\": \"nesto\"\n" +
-                            "    },\n" +
-                            "    \"asdasdasd\": {\n" +
-                            "      \"stringValue\": \"nesto\"\n" +
-                            "    }\n" +
-                            "  }\n" +
-                            "}";
-
-                    RequestBody requestBody = RequestBody.create(json, JSON);
-
-                    OkHttpClient client = new OkHttpClient();
-
-                    final Request request = new Request.Builder().addHeader("Authorization", auth).addHeader("Accept", "application/json").addHeader("Content-Type", "application/json").patch(requestBody).url(url).build();
-
-                    client.newCall(request).enqueue(new Callback() {
-                        @Override
-                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        @Override
-                        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                            if(response.isSuccessful()){
-                                final String myResponse = Objects.requireNonNull(response.body()).string();
-
-                                EditiranjePitanja.this.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        textView14.setText(myResponse);
-                                    }
-                                });
-                            }
-                        }
-                    });
-                }
-            }
-        });
- */

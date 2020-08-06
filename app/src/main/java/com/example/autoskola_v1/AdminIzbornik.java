@@ -66,42 +66,5 @@ public class AdminIzbornik extends AppCompatActivity {
                 }
             }
         });
-
-        /*
-        fAuth.getCurrentUser().getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-            @Override
-            public void onComplete(@NonNull Task<GetTokenResult> task) {
-                if(task.isSuccessful()){
-
-                    OkHttpClient client = new OkHttpClient();
-
-                    String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/Kat1/BrojPitanja/OpcaPitanja";
-                    String auth = "Bearer " + task.getResult().getToken();
-
-                    Request request = new Request.Builder().header("Authorization", auth).url(url).build();
-
-                    client.newCall(request).enqueue(new Callback() {
-                        @Override
-                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        @Override
-                        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                            if(response.isSuccessful()){
-                                final String myResponse = Objects.requireNonNull(response.body()).string();
-
-                                AdminIzbornik.this.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(AdminIzbornik.this, myResponse, Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                            }
-                        }
-                    });
-                }
-            }
-        });*/
     }
 }
