@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/bungee"
-                android:text="Odaberite što želite napraviti:"
+                android:text="Odaberi što želiš napraviti:"
                 android:textColor="#132131"
                 android:textSize="24sp" />
         </LinearLayout>

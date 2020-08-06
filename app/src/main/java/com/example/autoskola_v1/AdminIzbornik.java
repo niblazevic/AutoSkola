@@ -43,11 +43,11 @@ public class AdminIzbornik extends AppCompatActivity {
             public void onClick(View v) {
                 if(Objects.equals(getIntent().getStringExtra("KATEGORIJA"), "Kat1")){
                     Intent intent = new Intent(AdminIzbornik.this, TeorijaPropisi.class);
-                    intent.putExtra("ADMIN", "Izmjena");
+                    intent.putExtra("ADMIN", "Izmjene");
                     startActivity(intent);
                 }else{
                     Intent intent = new Intent(AdminIzbornik.this, TeorijaPrvaPomoc.class);
-                    intent.putExtra("ADMIN", "Izmjena");
+                    intent.putExtra("ADMIN", "Izmjene");
                     startActivity(intent);
                 }
             }

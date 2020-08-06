@@ -7,6 +7,7 @@ public class Pitanje {
     private String Odgovor3;
     private long TocanOdgovor;
     private String Slika;
+    private String name;
 
     public Pitanje(){}
 
@@ -17,6 +18,16 @@ public class Pitanje {
         this.Odgovor3 = Odgovor3;
         this.TocanOdgovor = TocanOdgovor;
         this.Slika = Slika;
+    }
+
+    public Pitanje(String Pitanje, String Odgovor1, String Odgovor2, String Odgovor3, long TocanOdgovor, String Slika, String name) {
+        this.Pitanje = Pitanje;
+        this.Odgovor1 = Odgovor1;
+        this.Odgovor2 = Odgovor2;
+        this.Odgovor3 = Odgovor3;
+        this.TocanOdgovor = TocanOdgovor;
+        this.Slika = Slika;
+        this.name = name;
     }
 
     public void setPitanje(String pitanje) {
@@ -65,5 +76,13 @@ public class Pitanje {
 
     public String getSlika() {
         return Slika;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

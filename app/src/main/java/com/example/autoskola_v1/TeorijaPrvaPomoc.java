@@ -9,10 +9,14 @@ import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.Objects;
 
 public class TeorijaPrvaPomoc extends AppCompatActivity {
 
     Button btn1_22Teorija, btn23_44Teorija, btn45_66Teorija;
+    TextView txtOpis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,20 +27,35 @@ public class TeorijaPrvaPomoc extends AppCompatActivity {
         btn1_22Teorija = findViewById(R.id.btn1_22Teorija);
         btn23_44Teorija = findViewById(R.id.btn23_44Teorija);
         btn45_66Teorija = findViewById(R.id.btn45_66Teorija);
+        txtOpis = findViewById(R.id.txtOpis);
 
+        if(getIntent().getStringExtra("ADMIN")!=null) {
+            txtOpis.setText("Odaberi kategoriju za " + getIntent().getStringExtra("ADMIN") + ":");
+        }
 
         btn1_22Teorija.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(getIntent().getStringExtra("ADMIN")!=null){
-                    Intent intent = new Intent(TeorijaPrvaPomoc.this,EditiranjePitanja.class);
-                    intent.putExtra("KATEGORIJA", "1. set pitanja");
-                    intent.putExtra("IDKATEGORIJE", "Kat2");
-                    intent.putExtra("IDSETA","1_22");
-                    intent.putExtra("IDDETALJNO","0");
-                    intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
 
-                    startActivity(intent);
+                    if(Objects.equals(getIntent().getStringExtra("ADMIN"), "Dodavanje")){
+                        Intent intent = new Intent(TeorijaPrvaPomoc.this,AdminPitanje.class);
+                        intent.putExtra("KATEGORIJA", "1. set pitanja");
+                        intent.putExtra("IDKATEGORIJE", "Kat2");
+                        intent.putExtra("IDSETA","1_22");
+                        intent.putExtra("IDDETALJNO","0");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(TeorijaPrvaPomoc.this,EditiranjePitanja.class);
+                        intent.putExtra("KATEGORIJA", "1. set pitanja");
+                        intent.putExtra("IDKATEGORIJE", "Kat2");
+                        intent.putExtra("IDSETA","1_22");
+                        intent.putExtra("IDDETALJNO","0");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }
+
                 }else{
                     Intent intent = new Intent(TeorijaPrvaPomoc.this,TeorijaPitanja.class);
                     intent.putExtra("KATEGORIJA", "1. set pitanja");
@@ -58,14 +77,25 @@ public class TeorijaPrvaPomoc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(getIntent().getStringExtra("ADMIN")!=null){
-                    Intent intent = new Intent(TeorijaPrvaPomoc.this,EditiranjePitanja.class);
-                    intent.putExtra("KATEGORIJA", "2. set pitanja");
-                    intent.putExtra("IDKATEGORIJE", "Kat2");
-                    intent.putExtra("IDSETA","23_44");
-                    intent.putExtra("IDDETALJNO","0");
-                    intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
 
-                    startActivity(intent);
+                    if(Objects.equals(getIntent().getStringExtra("ADMIN"), "Dodavanje")){
+                        Intent intent = new Intent(TeorijaPrvaPomoc.this,AdminPitanje.class);
+                        intent.putExtra("KATEGORIJA", "2. set pitanja");
+                        intent.putExtra("IDKATEGORIJE", "Kat2");
+                        intent.putExtra("IDSETA","23_44");
+                        intent.putExtra("IDDETALJNO","0");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(TeorijaPrvaPomoc.this,EditiranjePitanja.class);
+                        intent.putExtra("KATEGORIJA", "2. set pitanja");
+                        intent.putExtra("IDKATEGORIJE", "Kat2");
+                        intent.putExtra("IDSETA","23_44");
+                        intent.putExtra("IDDETALJNO","0");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }
+
                 }else{
                     Intent intent = new Intent(TeorijaPrvaPomoc.this,TeorijaPitanja.class);
                     intent.putExtra("KATEGORIJA", "2. set pitanja");
@@ -87,14 +117,25 @@ public class TeorijaPrvaPomoc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(getIntent().getStringExtra("ADMIN")!=null){
-                    Intent intent = new Intent(TeorijaPrvaPomoc.this,EditiranjePitanja.class);
-                    intent.putExtra("KATEGORIJA", "3. set pitanja");
-                    intent.putExtra("IDKATEGORIJE", "Kat2");
-                    intent.putExtra("IDSETA","45_66");
-                    intent.putExtra("IDDETALJNO","0");
-                    intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
 
-                    startActivity(intent);
+                    if(Objects.equals(getIntent().getStringExtra("ADMIN"), "Dodavanje")){
+                        Intent intent = new Intent(TeorijaPrvaPomoc.this,AdminPitanje.class);
+                        intent.putExtra("KATEGORIJA", "3. set pitanja");
+                        intent.putExtra("IDKATEGORIJE", "Kat2");
+                        intent.putExtra("IDSETA","45_66");
+                        intent.putExtra("IDDETALJNO","0");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(TeorijaPrvaPomoc.this,EditiranjePitanja.class);
+                        intent.putExtra("KATEGORIJA", "3. set pitanja");
+                        intent.putExtra("IDKATEGORIJE", "Kat2");
+                        intent.putExtra("IDSETA","45_66");
+                        intent.putExtra("IDDETALJNO","0");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }
+
                 }else{
                     Intent intent = new Intent(TeorijaPrvaPomoc.this,TeorijaPitanja.class);
                     intent.putExtra("KATEGORIJA", "3. set pitanja");

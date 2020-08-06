@@ -27,6 +27,7 @@ import java.util.Objects;
 public class TeorijaPropisi extends AppCompatActivity {
 
     Button btnOpcaPitanjaTeorija, btnPrometniZnakoviTeorija, btnPropustanjeVozilaItdTeorija, btnOpasneSituacijeTeorija;
+    TextView txtKategorija;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,11 @@ public class TeorijaPropisi extends AppCompatActivity {
         btnPrometniZnakoviTeorija = findViewById(R.id.btnPrometniZnakoviTeorija);
         btnPropustanjeVozilaItdTeorija = findViewById(R.id.btnPropustanjeVozilaItdTeorija);
         btnOpasneSituacijeTeorija = findViewById(R.id.btnOpasneSituacijeTeorija);
+        txtKategorija = findViewById(R.id.txtKategorija);
 
+        if(getIntent().getStringExtra("ADMIN")!=null) {
+            txtKategorija.setText("Odaberi kategoriju za " + getIntent().getStringExtra("ADMIN") + ":");
+        }
 
 
         btnOpcaPitanjaTeorija.setOnClickListener(new View.OnClickListener() {
@@ -46,14 +51,28 @@ public class TeorijaPropisi extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(getIntent().getStringExtra("ADMIN")!=null){
-                    Intent intent = new Intent(TeorijaPropisi.this,EditiranjePitanja.class);
-                    intent.putExtra("KATEGORIJA", "Opća pitanja");
-                    intent.putExtra("IDKATEGORIJE", "Kat1");
-                    intent.putExtra("IDSETA","OpcaPitanja");
-                    intent.putExtra("IDDETALJNO","0");
-                    intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
 
-                    startActivity(intent);
+                    if(Objects.equals(getIntent().getStringExtra("ADMIN"), "Dodavanje")){
+
+                        Intent intent = new Intent(TeorijaPropisi.this, AdminPitanje.class);
+                        intent.putExtra("KATEGORIJA", "Opća pitanja");
+                        intent.putExtra("IDKATEGORIJE", "Kat1");
+                        intent.putExtra("IDSETA","OpcaPitanja");
+                        intent.putExtra("IDDETALJNO","0");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+
+                    }else{
+
+                        Intent intent = new Intent(TeorijaPropisi.this,EditiranjePitanja.class);
+                        intent.putExtra("KATEGORIJA", "Opća pitanja");
+                        intent.putExtra("IDKATEGORIJE", "Kat1");
+                        intent.putExtra("IDSETA","OpcaPitanja");
+                        intent.putExtra("IDDETALJNO","0");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }
+
                 }else{
                     Intent intent = new Intent(TeorijaPropisi.this,TeorijaPitanja.class);
                     intent.putExtra("KATEGORIJA", "Opća pitanja");
@@ -90,14 +109,25 @@ public class TeorijaPropisi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(getIntent().getStringExtra("ADMIN")!=null){
-                    Intent intent = new Intent(TeorijaPropisi.this, EditiranjePitanja.class);
-                    intent.putExtra("KATEGORIJA", "Propuštanje vozila i prednost prolaska");
-                    intent.putExtra("IDKATEGORIJE", "Kat1");
-                    intent.putExtra("IDSETA","PropustanjeVozilaItd");
-                    intent.putExtra("IDDETALJNO","0");
-                    intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
 
-                    startActivity(intent);
+                    if(Objects.equals(getIntent().getStringExtra("ADMIN"), "Dodavanje")){
+                        Intent intent = new Intent(TeorijaPropisi.this, AdminPitanje.class);
+                        intent.putExtra("KATEGORIJA", "Propuštanje vozila i prednost prolaska");
+                        intent.putExtra("IDKATEGORIJE", "Kat1");
+                        intent.putExtra("IDSETA","PropustanjeVozilaItd");
+                        intent.putExtra("IDDETALJNO","0");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(TeorijaPropisi.this, EditiranjePitanja.class);
+                        intent.putExtra("KATEGORIJA", "Propuštanje vozila i prednost prolaska");
+                        intent.putExtra("IDKATEGORIJE", "Kat1");
+                        intent.putExtra("IDSETA","PropustanjeVozilaItd");
+                        intent.putExtra("IDDETALJNO","0");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }
+
                 }else{
                     Intent intent = new Intent(TeorijaPropisi.this, TeorijaPitanja.class);
                     intent.putExtra("KATEGORIJA", "Propuštanje vozila i prednost prolaska");
@@ -119,14 +149,25 @@ public class TeorijaPropisi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(getIntent().getStringExtra("ADMIN")!=null){
-                    Intent intent = new Intent(TeorijaPropisi.this, EditiranjePitanja.class);
-                    intent.putExtra("KATEGORIJA", "Opasne situacije");
-                    intent.putExtra("IDKATEGORIJE", "Kat1");
-                    intent.putExtra("IDSETA","OpasneSituacije");
-                    intent.putExtra("IDDETALJNO","0");
-                    intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
 
-                    startActivity(intent);
+                    if(Objects.equals(getIntent().getStringExtra("ADMIN"), "Dodavanje")){
+                        Intent intent = new Intent(TeorijaPropisi.this, AdminPitanje.class);
+                        intent.putExtra("KATEGORIJA", "Opasne situacije");
+                        intent.putExtra("IDKATEGORIJE", "Kat1");
+                        intent.putExtra("IDSETA","OpasneSituacije");
+                        intent.putExtra("IDDETALJNO","0");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(TeorijaPropisi.this, EditiranjePitanja.class);
+                        intent.putExtra("KATEGORIJA", "Opasne situacije");
+                        intent.putExtra("IDKATEGORIJE", "Kat1");
+                        intent.putExtra("IDSETA","OpasneSituacije");
+                        intent.putExtra("IDDETALJNO","0");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }
+
                 }else{
                     Intent intent = new Intent(TeorijaPropisi.this, TeorijaPitanja.class);
                     intent.putExtra("KATEGORIJA", "Opasne situacije");

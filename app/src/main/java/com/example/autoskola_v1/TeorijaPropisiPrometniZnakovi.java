@@ -9,10 +9,14 @@ import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.Objects;
 
 public class TeorijaPropisiPrometniZnakovi extends AppCompatActivity {
 
     Button btnZnakoviIzricitihNaredbiTeorija, btnZnakoviOpasnostiTeorija, btnZnakoviObavijestiTeorija, btnZnakoviObavijestiItdTeorija, btnDopunskePloceTeorija;
+    TextView txtKategorijaZnakovi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,20 +29,36 @@ public class TeorijaPropisiPrometniZnakovi extends AppCompatActivity {
         btnZnakoviObavijestiTeorija = findViewById(R.id.btnZnakoviObavijestiTeorija);
         btnZnakoviObavijestiItdTeorija = findViewById(R.id.btnZnakoviObavijestiItdTeorija);
         btnDopunskePloceTeorija = findViewById(R.id.btnDopunskePloceTeorija);
+        txtKategorijaZnakovi = findViewById(R.id.txtKategorijaZnakovi);
+
+        if(getIntent().getStringExtra("ADMIN")!=null){
+            txtKategorijaZnakovi.setText("Odaberi kategoriju znakova za " + getIntent().getStringExtra("ADMIN") + ":");
+        }
 
         btnZnakoviIzricitihNaredbiTeorija.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if(getIntent().getStringExtra("ADMIN")!=null){
-                    Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, EditiranjePitanja.class);
-                    intent.putExtra("KATEGORIJA", "Prometni znakovi");
-                    intent.putExtra("IDKATEGORIJE", "Kat1");
-                    intent.putExtra("IDSETA","PrometniZnakovi");
-                    intent.putExtra("IDDETALJNO","ZnakoviIzricitihNaredbi");
-                    intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
 
-                    startActivity(intent);
+                    if(Objects.equals(getIntent().getStringExtra("ADMIN"), "Dodavanje")){
+                        Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, AdminPitanje.class);
+                        intent.putExtra("KATEGORIJA", "Prometni znakovi");
+                        intent.putExtra("IDKATEGORIJE", "Kat1");
+                        intent.putExtra("IDSETA","PrometniZnakovi");
+                        intent.putExtra("IDDETALJNO","ZnakoviIzricitihNaredbi");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, EditiranjePitanja.class);
+                        intent.putExtra("KATEGORIJA", "Prometni znakovi");
+                        intent.putExtra("IDKATEGORIJE", "Kat1");
+                        intent.putExtra("IDSETA","PrometniZnakovi");
+                        intent.putExtra("IDDETALJNO","ZnakoviIzricitihNaredbi");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }
+
                 }else{
                     Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, TeorijaPitanja.class);
                     intent.putExtra("KATEGORIJA", "Prometni znakovi");
@@ -59,14 +79,25 @@ public class TeorijaPropisiPrometniZnakovi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(getIntent().getStringExtra("ADMIN")!=null){
-                    Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, EditiranjePitanja.class);
-                    intent.putExtra("KATEGORIJA", "Prometni znakovi");
-                    intent.putExtra("IDKATEGORIJE", "Kat1");
-                    intent.putExtra("IDSETA","PrometniZnakovi");
-                    intent.putExtra("IDDETALJNO","ZnakoviOpasnosti");
-                    intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
 
-                    startActivity(intent);
+                    if(Objects.equals(getIntent().getStringExtra("ADMIN"), "Dodavanje")){
+                        Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, AdminPitanje.class);
+                        intent.putExtra("KATEGORIJA", "Prometni znakovi");
+                        intent.putExtra("IDKATEGORIJE", "Kat1");
+                        intent.putExtra("IDSETA","PrometniZnakovi");
+                        intent.putExtra("IDDETALJNO","ZnakoviOpasnosti");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, EditiranjePitanja.class);
+                        intent.putExtra("KATEGORIJA", "Prometni znakovi");
+                        intent.putExtra("IDKATEGORIJE", "Kat1");
+                        intent.putExtra("IDSETA","PrometniZnakovi");
+                        intent.putExtra("IDDETALJNO","ZnakoviOpasnosti");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }
+
                 }else{
                     Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, TeorijaPitanja.class);
                     intent.putExtra("KATEGORIJA", "Prometni znakovi");
@@ -87,14 +118,25 @@ public class TeorijaPropisiPrometniZnakovi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(getIntent().getStringExtra("ADMIN")!=null){
-                    Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, EditiranjePitanja.class);
-                    intent.putExtra("KATEGORIJA", "Prometni znakovi");
-                    intent.putExtra("IDKATEGORIJE", "Kat1");
-                    intent.putExtra("IDSETA","PrometniZnakovi");
-                    intent.putExtra("IDDETALJNO","ZnakoviObavijesti");
-                    intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
 
-                    startActivity(intent);
+                    if(Objects.equals(getIntent().getStringExtra("ADMIN"), "Dodavanje")){
+                        Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, AdminPitanje.class);
+                        intent.putExtra("KATEGORIJA", "Prometni znakovi");
+                        intent.putExtra("IDKATEGORIJE", "Kat1");
+                        intent.putExtra("IDSETA","PrometniZnakovi");
+                        intent.putExtra("IDDETALJNO","ZnakoviObavijesti");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, EditiranjePitanja.class);
+                        intent.putExtra("KATEGORIJA", "Prometni znakovi");
+                        intent.putExtra("IDKATEGORIJE", "Kat1");
+                        intent.putExtra("IDSETA","PrometniZnakovi");
+                        intent.putExtra("IDDETALJNO","ZnakoviObavijesti");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }
+
                 }else{
                     Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, TeorijaPitanja.class);
                     intent.putExtra("KATEGORIJA", "Prometni znakovi");
@@ -115,14 +157,25 @@ public class TeorijaPropisiPrometniZnakovi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(getIntent().getStringExtra("ADMIN")!=null){
-                    Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, EditiranjePitanja.class);
-                    intent.putExtra("KATEGORIJA", "Prometni znakovi");
-                    intent.putExtra("IDKATEGORIJE", "Kat1");
-                    intent.putExtra("IDSETA","PrometniZnakovi");
-                    intent.putExtra("IDDETALJNO","ZnakoviObavijestiItd");
-                    intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
 
-                    startActivity(intent);
+                    if(Objects.equals(getIntent().getStringExtra("ADMIN"), "Dodavanje")){
+                        Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, AdminPitanje.class);
+                        intent.putExtra("KATEGORIJA", "Prometni znakovi");
+                        intent.putExtra("IDKATEGORIJE", "Kat1");
+                        intent.putExtra("IDSETA","PrometniZnakovi");
+                        intent.putExtra("IDDETALJNO","ZnakoviObavijestiItd");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, EditiranjePitanja.class);
+                        intent.putExtra("KATEGORIJA", "Prometni znakovi");
+                        intent.putExtra("IDKATEGORIJE", "Kat1");
+                        intent.putExtra("IDSETA","PrometniZnakovi");
+                        intent.putExtra("IDDETALJNO","ZnakoviObavijestiItd");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }
+
                 }else{
                     Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, TeorijaPitanja.class);
                     intent.putExtra("KATEGORIJA", "Prometni znakovi");
@@ -143,14 +196,25 @@ public class TeorijaPropisiPrometniZnakovi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(getIntent().getStringExtra("ADMIN")!=null){
-                    Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, EditiranjePitanja.class);
-                    intent.putExtra("KATEGORIJA", "Prometni znakovi");
-                    intent.putExtra("IDKATEGORIJE", "Kat1");
-                    intent.putExtra("IDSETA","PrometniZnakovi");
-                    intent.putExtra("IDDETALJNO","DopunskePloce");
-                    intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
 
-                    startActivity(intent);
+                    if(Objects.equals(getIntent().getStringExtra("ADMIN"), "Dodavanje")){
+                        Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, AdminPitanje.class);
+                        intent.putExtra("KATEGORIJA", "Prometni znakovi");
+                        intent.putExtra("IDKATEGORIJE", "Kat1");
+                        intent.putExtra("IDSETA","PrometniZnakovi");
+                        intent.putExtra("IDDETALJNO","DopunskePloce");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, EditiranjePitanja.class);
+                        intent.putExtra("KATEGORIJA", "Prometni znakovi");
+                        intent.putExtra("IDKATEGORIJE", "Kat1");
+                        intent.putExtra("IDSETA","PrometniZnakovi");
+                        intent.putExtra("IDDETALJNO","DopunskePloce");
+                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                        startActivity(intent);
+                    }
+
                 }else{
                     Intent intent = new Intent(TeorijaPropisiPrometniZnakovi.this, TeorijaPitanja.class);
                     intent.putExtra("KATEGORIJA", "Prometni znakovi");

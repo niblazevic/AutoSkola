@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/bungee"
-                android:text="Odaberite kategoriju koju želite izmjeniti:"
+                android:text="Odaberi kategoriju koju želiš izmjeniti:"
                 android:textColor="#132131"
                 android:textSize="24sp" />
         </LinearLayout>
