@@ -804,21 +804,7 @@ public class Ispit extends AppCompatActivity {
                 @Override
                 public void onSuccess() {
                     ucitavanje.makniUcitavanje();
-
-                    final Dialog dialog = new Dialog(Ispit.this);
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dialog.setContentView(R.layout.obavijest_ispit);
-                    dialog.setCancelable(false);
-
-                    Button btnDialog = dialog.findViewById(R.id.btnPokreniIspit);
-                    btnDialog.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                            startTimer();
-                        }
-                    });
-                    dialog.show();
+                    startTimer();
 
                 }
 
@@ -831,20 +817,7 @@ public class Ispit extends AppCompatActivity {
             if(brojac == 0){
                 imgSlikaIspit.setVisibility(View.GONE);
                 ucitavanje.makniUcitavanje();
-                final Dialog dialog = new Dialog(Ispit.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.obavijest_ispit);
-                dialog.setCancelable(false);
-
-                Button btnDialog = dialog.findViewById(R.id.btnPokreniIspit);
-                btnDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                        startTimer();
-                    }
-                });
-                dialog.show();
+                startTimer();
             }
             brojac++;
         }

@@ -324,21 +324,7 @@ public class VjezbePitanja extends AppCompatActivity {
                 @Override
                 public void onSuccess() {
                     ucitavanje.makniUcitavanje();
-
-                    final Dialog dialog = new Dialog(VjezbePitanja.this);
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dialog.setContentView(R.layout.obavijest);
-                    dialog.setCancelable(false);
-
-                    Button btnDialog = dialog.findViewById(R.id.btnPokreni);
-                    btnDialog.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                            startTimer();
-                        }
-                    });
-                    dialog.show();
+                    startTimer();
                 }
 
                 @Override
@@ -354,21 +340,7 @@ public class VjezbePitanja extends AppCompatActivity {
             imgPitanja.setImageResource(0);
             if(provjeraTimera == 0){
                 ucitavanje.makniUcitavanje();
-
-                final Dialog dialog = new Dialog(VjezbePitanja.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.obavijest);
-                dialog.setCancelable(false);
-
-                Button btnDialog = dialog.findViewById(R.id.btnPokreni);
-                btnDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                        startTimer();
-                    }
-                });
-                dialog.show();
+                startTimer();
             }
             provjeraTimera++;
         }
