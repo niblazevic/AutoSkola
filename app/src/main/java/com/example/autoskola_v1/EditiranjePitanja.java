@@ -295,10 +295,16 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
                                                 JSONObject jsonObject = new JSONObject(myResponse);
                                                 JSONArray jsonArray = jsonObject.getJSONArray("documents");
 
-                                                if(jsonArray.length() <= 19){
-                                                    pageToken = "0";
+
+                                                if(jsonArray.length() >= 20){
+                                                    try {
+                                                        pageToken = jsonObject.getString("nextPageToken");
+                                                    }catch (JSONException e){
+                                                        pageToken = "0";
+                                                    }
+
                                                 }else{
-                                                    pageToken = jsonObject.getString("nextPageToken");
+                                                    pageToken = "0";
                                                 }
 
 
@@ -408,6 +414,7 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
     }
 
     private void premjestanjePodataka(final Pitanje pitanjeTemp, final String getName, final String brojPitanja) {
+
         fAuth.getCurrentUser().getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
             @Override
             public void onComplete(@NonNull Task<GetTokenResult> task) {
@@ -466,6 +473,11 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
                                 EditiranjePitanja.this.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        if(!pitanjeTemp.getSlika().equals("")){
+                                            StorageReference photoRef = fStorage.getReferenceFromUrl(pitanjeTemp.getSlika());
+                                            photoRef.delete();
+                                        }
+
                                         brisanjePitanja(brojPitanja, pitanjeTemp.getSlika());
                                     }
                                 });
@@ -517,11 +529,6 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
                 }
             }
         });
-
-        if(!Slika.equals("")){
-            StorageReference photoRef = fStorage.getReferenceFromUrl(Slika);
-            photoRef.delete();
-        }
 
         ucitavanje("0", false, "", "");
     }

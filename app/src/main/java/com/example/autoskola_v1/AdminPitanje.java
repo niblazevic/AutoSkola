@@ -68,7 +68,6 @@ public class AdminPitanje extends AppCompatActivity {
     Button btnPotvrdi;
     String urlNoveSlike = "";
 
-    Ucitavanje ucitavanjeSadrzaja = new Ucitavanje(AdminPitanje.this);
 
     private final int imgRequest = 71;
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
@@ -79,7 +78,6 @@ public class AdminPitanje extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_admin_pitanje);
 
-        ucitavanjeSadrzaja.pokreniUcitavanje();
 
         fAuth = FirebaseAuth.getInstance();
         fStorage = FirebaseStorage.getInstance();
@@ -104,18 +102,7 @@ public class AdminPitanje extends AppCompatActivity {
         if(Objects.equals(getIntent().getStringExtra("ADMIN"), "Izmjene")){
 
             if(!Objects.equals(getIntent().getStringExtra("SLIKA"), "")){
-                Picasso.get().load(getIntent().getStringExtra("SLIKA")).into(imgSlikaAdmin, new com.squareup.picasso.Callback() {
-                    @Override
-                    public void onSuccess() {
-                        ucitavanjeSadrzaja.makniUcitavanje();
-                    }
-                    @Override
-                    public void onError(Exception e) {
-                        ucitavanjeSadrzaja.makniUcitavanje();
-                    }
-                });
-            }else{
-                ucitavanjeSadrzaja.makniUcitavanje();
+                Picasso.get().load(getIntent().getStringExtra("SLIKA")).into(imgSlikaAdmin);
             }
 
             btnPotvrdi.setText("Ažuriraj pitanje");
@@ -176,96 +163,190 @@ public class AdminPitanje extends AppCompatActivity {
         if(TextUtils.isEmpty(txtPitanjeAdmin.getText()) || TextUtils.isEmpty(txtOdgovor1Admin.getText()) || TextUtils.isEmpty(txtOdgovor2Admin.getText()) || TextUtils.isEmpty(txtOdgovor3Admin.getText())){
             Toast.makeText(this, "Sva polja moraju biti popunjena!", Toast.LENGTH_SHORT).show();
         }else{
-/*
+
             if(filePath!=null){
+                StorageReference photoRef = fStorage.getReferenceFromUrl(Objects.requireNonNull(getIntent().getStringExtra("SLIKA")));
+                photoRef.delete();
 
                 String Kategorija1 = getIntent().getStringExtra("IDKATEGORIJE");
                 String IDseta1 = getIntent().getStringExtra("IDSETA");
 
-                StorageReference reference = storageReference.child("Pitanja/"+ Kategorija1 +"/"+ IDseta1 + "/" + UUID.randomUUID().toString());
-                reference.putFile(filePath);
-            }*/
+                final StorageReference reference = storageReference.child("Pitanja/"+ Kategorija1 +"/"+ IDseta1 + "/" + UUID.randomUUID().toString());
+                reference.putFile(filePath).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        urlNoveSlike = uri.toString();
 
-            fAuth.getCurrentUser().getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-                @Override
-                public void onComplete(@NonNull Task<GetTokenResult> task) {
-                    if (task.isSuccessful()) {
+                                        fAuth.getCurrentUser().getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<GetTokenResult> task) {
+                                                if (task.isSuccessful()) {
 
-                        String Kategorija = getIntent().getStringExtra("IDKATEGORIJE");
-                        String IDseta = getIntent().getStringExtra("IDSETA");
-                        String Pitanje = getIntent().getStringExtra("NAME");
-                        String Slika = getIntent().getStringExtra("SLIKA");
+                                                    String Kategorija = getIntent().getStringExtra("IDKATEGORIJE");
+                                                    String IDseta = getIntent().getStringExtra("IDSETA");
+                                                    String Pitanje = getIntent().getStringExtra("NAME");
+                                                    String Slika = getIntent().getStringExtra("SLIKA");
 
-                        if(filePath!=null){
-                            Slika = urlNoveSlike;
-                        }
+                                                    if(urlNoveSlike!=null){
+                                                        Slika = urlNoveSlike;
+                                                    }
 
-                        String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/" + IDseta + "/" + Pitanje;
-                        if(!getIntent().getStringExtra("IDDETALJNO").equals("0")){
-                            url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/" + IDseta + "/" + getIntent().getStringExtra("IDDETALJNO") +"/Pitanja/" + Pitanje;
-                        }
+                                                    String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/" + IDseta + "/" + Pitanje;
+                                                    if(!getIntent().getStringExtra("IDDETALJNO").equals("0")){
+                                                        url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/" + IDseta + "/" + getIntent().getStringExtra("IDDETALJNO") +"/Pitanja/" + Pitanje;
+                                                    }
 
-                        String auth = "Bearer " + task.getResult().getToken();
+                                                    String auth = "Bearer " + task.getResult().getToken();
 
-                        String json = "{\n" +
-                                "  \"fields\": {\n" +
-                                "    \"Pitanje\": {\n" +
-                                "      \"stringValue\": \""+ txtPitanjeAdmin.getText() +"\"\n" +
-                                "    },\n" +
-                                "    \"Odgovor1\": {\n" +
-                                "      \"stringValue\": \""+ txtOdgovor1Admin.getText() +"\"\n" +
-                                "    },\n" +
-                                "    \"Odgovor2\": {\n" +
-                                "      \"stringValue\": \""+ txtOdgovor2Admin.getText() +"\"\n" +
-                                "    },\n" +
-                                "    \"Odgovor3\": {\n" +
-                                "      \"stringValue\": \""+ txtOdgovor3Admin.getText() +"\"\n" +
-                                "    },\n" +
-                                "    \"TocanOdgovor\": {\n" +
-                                "      \"integerValue\": "+ spinnerTocanOdgovorAdmin.getSelectedItem().toString() +"\n" +
-                                "    },\n" +
-                                "    \"Slika\": {\n" +
-                                "      \"stringValue\": \""+ Slika +"\"\n" +
-                                "    }\n" +
-                                "  }\n" +
-                                "}";
+                                                    String json = "{\n" +
+                                                            "  \"fields\": {\n" +
+                                                            "    \"Pitanje\": {\n" +
+                                                            "      \"stringValue\": \""+ txtPitanjeAdmin.getText() +"\"\n" +
+                                                            "    },\n" +
+                                                            "    \"Odgovor1\": {\n" +
+                                                            "      \"stringValue\": \""+ txtOdgovor1Admin.getText() +"\"\n" +
+                                                            "    },\n" +
+                                                            "    \"Odgovor2\": {\n" +
+                                                            "      \"stringValue\": \""+ txtOdgovor2Admin.getText() +"\"\n" +
+                                                            "    },\n" +
+                                                            "    \"Odgovor3\": {\n" +
+                                                            "      \"stringValue\": \""+ txtOdgovor3Admin.getText() +"\"\n" +
+                                                            "    },\n" +
+                                                            "    \"TocanOdgovor\": {\n" +
+                                                            "      \"integerValue\": "+ spinnerTocanOdgovorAdmin.getSelectedItem().toString() +"\n" +
+                                                            "    },\n" +
+                                                            "    \"Slika\": {\n" +
+                                                            "      \"stringValue\": \""+ Slika +"\"\n" +
+                                                            "    }\n" +
+                                                            "  }\n" +
+                                                            "}";
 
-                        RequestBody requestBody = RequestBody.create(json, JSON);
+                                                    RequestBody requestBody = RequestBody.create(json, JSON);
 
-                        OkHttpClient client = new OkHttpClient();
+                                                    OkHttpClient client = new OkHttpClient();
 
-                        Request request = new Request.Builder().addHeader("Authorization", auth).addHeader("Accept", "application/json").addHeader("Content-Type", "application/json").patch(requestBody).url(url).build();
+                                                    Request request = new Request.Builder().addHeader("Authorization", auth).addHeader("Accept", "application/json").addHeader("Content-Type", "application/json").patch(requestBody).url(url).build();
 
-                        client.newCall(request).enqueue(new Callback() {
-                            @Override
-                            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                                Toast.makeText(AdminPitanje.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
+                                                    client.newCall(request).enqueue(new Callback() {
+                                                        @Override
+                                                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                                                            Toast.makeText(AdminPitanje.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                        }
 
-                            @Override
-                            public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
-                                if(response.isSuccessful()){
-                                    AdminPitanje.this.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Toast.makeText(AdminPitanje.this, "Pitanje je ažurirano!", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(AdminPitanje.this, EditiranjePitanja.class);
-                                            intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
-                                            intent.putExtra("KATEGORIJA", getIntent().getStringExtra("KATEGORIJA"));
-                                            intent.putExtra("IDKATEGORIJE", getIntent().getStringExtra("IDKATEGORIJE"));
-                                            intent.putExtra("IDSETA", getIntent().getStringExtra("IDSETA"));
-                                            intent.putExtra("IDDETALJNO", getIntent().getStringExtra("IDDETALJNO"));
-                                            startActivity(intent);
-                                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                                            finish();
-                                        }
-                                    });
-                                }
+                                                        @Override
+                                                        public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
+                                                            if(response.isSuccessful()){
+                                                                AdminPitanje.this.runOnUiThread(new Runnable() {
+                                                                    @Override
+                                                                    public void run() {
+                                                                        Toast.makeText(AdminPitanje.this, "Pitanje je ažurirano!", Toast.LENGTH_SHORT).show();
+                                                                        Intent intent = new Intent(AdminPitanje.this, EditiranjePitanja.class);
+                                                                        intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                                                                        intent.putExtra("KATEGORIJA", getIntent().getStringExtra("KATEGORIJA"));
+                                                                        intent.putExtra("IDKATEGORIJE", getIntent().getStringExtra("IDKATEGORIJE"));
+                                                                        intent.putExtra("IDSETA", getIntent().getStringExtra("IDSETA"));
+                                                                        intent.putExtra("IDDETALJNO", getIntent().getStringExtra("IDDETALJNO"));
+                                                                        startActivity(intent);
+                                                                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                                                                        finish();
+                                                                    }
+                                                                });
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
                             }
                         });
+            }else{
+                final String Kategorija1 = getIntent().getStringExtra("IDKATEGORIJE");
+                final String IDseta1 = getIntent().getStringExtra("IDSETA");
+
+                fAuth.getCurrentUser().getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<GetTokenResult> task) {
+                        if (task.isSuccessful()) {
+
+                            String Pitanje = getIntent().getStringExtra("NAME");
+                            String Slika = getIntent().getStringExtra("SLIKA");
+
+                            if(urlNoveSlike!=null){
+                                Slika = urlNoveSlike;
+                            }
+
+                            String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija1 + "/" + IDseta1 + "/" + Pitanje;
+                            if(!getIntent().getStringExtra("IDDETALJNO").equals("0")){
+                                url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija1 + "/" + IDseta1 + "/" + getIntent().getStringExtra("IDDETALJNO") +"/Pitanja/" + Pitanje;
+                            }
+
+                            String auth = "Bearer " + task.getResult().getToken();
+
+                            String json = "{\n" +
+                                    "  \"fields\": {\n" +
+                                    "    \"Pitanje\": {\n" +
+                                    "      \"stringValue\": \""+ txtPitanjeAdmin.getText() +"\"\n" +
+                                    "    },\n" +
+                                    "    \"Odgovor1\": {\n" +
+                                    "      \"stringValue\": \""+ txtOdgovor1Admin.getText() +"\"\n" +
+                                    "    },\n" +
+                                    "    \"Odgovor2\": {\n" +
+                                    "      \"stringValue\": \""+ txtOdgovor2Admin.getText() +"\"\n" +
+                                    "    },\n" +
+                                    "    \"Odgovor3\": {\n" +
+                                    "      \"stringValue\": \""+ txtOdgovor3Admin.getText() +"\"\n" +
+                                    "    },\n" +
+                                    "    \"TocanOdgovor\": {\n" +
+                                    "      \"integerValue\": "+ spinnerTocanOdgovorAdmin.getSelectedItem().toString() +"\n" +
+                                    "    },\n" +
+                                    "    \"Slika\": {\n" +
+                                    "      \"stringValue\": \""+ Slika +"\"\n" +
+                                    "    }\n" +
+                                    "  }\n" +
+                                    "}";
+
+                            RequestBody requestBody = RequestBody.create(json, JSON);
+
+                            OkHttpClient client = new OkHttpClient();
+
+                            Request request = new Request.Builder().addHeader("Authorization", auth).addHeader("Accept", "application/json").addHeader("Content-Type", "application/json").patch(requestBody).url(url).build();
+
+                            client.newCall(request).enqueue(new Callback() {
+                                @Override
+                                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                                    Toast.makeText(AdminPitanje.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
+                                    if(response.isSuccessful()){
+                                        AdminPitanje.this.runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast.makeText(AdminPitanje.this, "Pitanje je ažurirano!", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(AdminPitanje.this, EditiranjePitanja.class);
+                                                intent.putExtra("ADMIN", getIntent().getStringExtra("ADMIN"));
+                                                intent.putExtra("KATEGORIJA", getIntent().getStringExtra("KATEGORIJA"));
+                                                intent.putExtra("IDKATEGORIJE", getIntent().getStringExtra("IDKATEGORIJE"));
+                                                intent.putExtra("IDSETA", getIntent().getStringExtra("IDSETA"));
+                                                intent.putExtra("IDDETALJNO", getIntent().getStringExtra("IDDETALJNO"));
+                                                startActivity(intent);
+                                                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                                                finish();
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     }
 
@@ -382,102 +463,177 @@ public class AdminPitanje extends AppCompatActivity {
     }
 
     private void dodavanjePitanja(final String brojPitanja) {
-/*
-        if(filePath!=null){
 
+        if(filePath!=null){
             String Kategorija1 = getIntent().getStringExtra("IDKATEGORIJE");
             String IDseta1 = getIntent().getStringExtra("IDSETA");
 
-            StorageReference reference = storageReference.child("Pitanja/"+ Kategorija1 +"/"+ IDseta1 + "/" + UUID.randomUUID().toString());
-            reference.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            final StorageReference reference = storageReference.child("Pitanja/"+ Kategorija1 +"/"+ IDseta1 + "/" + UUID.randomUUID().toString());
+            reference.putFile(filePath).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            Uri downloadUrl = uri;
+                            urlNoveSlike = uri.toString();
+
+                            fAuth.getCurrentUser().getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<GetTokenResult> task) {
+                                    if (task.isSuccessful()) {
+
+                                        final String Kategorija = getIntent().getStringExtra("IDKATEGORIJE");
+                                        String IDseta = getIntent().getStringExtra("IDSETA");
+                                        String Slika = urlNoveSlike;
+
+
+                                        String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/" + IDseta + "/Pitanje" + brojPitanja;
+                                        if(!getIntent().getStringExtra("IDDETALJNO").equals("0")){
+                                            url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/" + IDseta + "/" + getIntent().getStringExtra("IDDETALJNO") +"/Pitanja/Pitanje" + brojPitanja;
+                                        }
+
+                                        String auth = "Bearer " + task.getResult().getToken();
+
+                                        String json = "{\n" +
+                                                "  \"fields\": {\n" +
+                                                "    \"Pitanje\": {\n" +
+                                                "      \"stringValue\": \""+ txtPitanjeAdmin.getText() +"\"\n" +
+                                                "    },\n" +
+                                                "    \"Odgovor1\": {\n" +
+                                                "      \"stringValue\": \""+ txtOdgovor1Admin.getText() +"\"\n" +
+                                                "    },\n" +
+                                                "    \"Odgovor2\": {\n" +
+                                                "      \"stringValue\": \""+ txtOdgovor2Admin.getText() +"\"\n" +
+                                                "    },\n" +
+                                                "    \"Odgovor3\": {\n" +
+                                                "      \"stringValue\": \""+ txtOdgovor3Admin.getText() +"\"\n" +
+                                                "    },\n" +
+                                                "    \"TocanOdgovor\": {\n" +
+                                                "      \"integerValue\": "+ spinnerTocanOdgovorAdmin.getSelectedItem().toString() +"\n" +
+                                                "    },\n" +
+                                                "    \"Slika\": {\n" +
+                                                "      \"stringValue\": \""+ Slika +"\"\n" +
+                                                "    }\n" +
+                                                "  }\n" +
+                                                "}";
+
+                                        RequestBody requestBody = RequestBody.create(json, JSON);
+
+                                        OkHttpClient client = new OkHttpClient();
+
+                                        Request request = new Request.Builder().addHeader("Authorization", auth).addHeader("Accept", "application/json").addHeader("Content-Type", "application/json").patch(requestBody).url(url).build();
+
+                                        client.newCall(request).enqueue(new Callback() {
+                                            @Override
+                                            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                                                Toast.makeText(AdminPitanje.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+
+                                            @Override
+                                            public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
+                                                if(response.isSuccessful()){
+                                                    AdminPitanje.this.runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            Toast.makeText(AdminPitanje.this, "Pitanje je dodano!", Toast.LENGTH_SHORT).show();
+                                                            Intent intent = new Intent(AdminPitanje.this, EditiranjePitanja.class);
+                                                            intent.putExtra("ADMIN", "Izmjene");
+                                                            intent.putExtra("KATEGORIJA", getIntent().getStringExtra("KATEGORIJA"));
+                                                            intent.putExtra("IDKATEGORIJE", getIntent().getStringExtra("IDKATEGORIJE"));
+                                                            intent.putExtra("IDSETA", getIntent().getStringExtra("IDSETA"));
+                                                            intent.putExtra("IDDETALJNO", getIntent().getStringExtra("IDDETALJNO"));
+                                                            startActivity(intent);
+                                                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                                                            finish();
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                            });
                         }
                     });
                 }
             });
+        }else{
+            fAuth.getCurrentUser().getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                @Override
+                public void onComplete(@NonNull Task<GetTokenResult> task) {
+                    if (task.isSuccessful()) {
 
-        }*/
-
-        fAuth.getCurrentUser().getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-            @Override
-            public void onComplete(@NonNull Task<GetTokenResult> task) {
-                if (task.isSuccessful()) {
-
-                    final String Kategorija = getIntent().getStringExtra("IDKATEGORIJE");
-                    String IDseta = getIntent().getStringExtra("IDSETA");
-                    String Slika = urlNoveSlike;
+                        final String Kategorija = getIntent().getStringExtra("IDKATEGORIJE");
+                        String IDseta = getIntent().getStringExtra("IDSETA");
+                        String Slika = "";
 
 
-                    String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/" + IDseta + "/Pitanje" + brojPitanja;
-                    if(!getIntent().getStringExtra("IDDETALJNO").equals("0")){
-                        url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/" + IDseta + "/" + getIntent().getStringExtra("IDDETALJNO") +"/Pitanja/Pitanje" + brojPitanja;
-                    }
-
-                    String auth = "Bearer " + task.getResult().getToken();
-
-                    String json = "{\n" +
-                            "  \"fields\": {\n" +
-                            "    \"Pitanje\": {\n" +
-                            "      \"stringValue\": \""+ txtPitanjeAdmin.getText() +"\"\n" +
-                            "    },\n" +
-                            "    \"Odgovor1\": {\n" +
-                            "      \"stringValue\": \""+ txtOdgovor1Admin.getText() +"\"\n" +
-                            "    },\n" +
-                            "    \"Odgovor2\": {\n" +
-                            "      \"stringValue\": \""+ txtOdgovor2Admin.getText() +"\"\n" +
-                            "    },\n" +
-                            "    \"Odgovor3\": {\n" +
-                            "      \"stringValue\": \""+ txtOdgovor3Admin.getText() +"\"\n" +
-                            "    },\n" +
-                            "    \"TocanOdgovor\": {\n" +
-                            "      \"integerValue\": "+ spinnerTocanOdgovorAdmin.getSelectedItem().toString() +"\n" +
-                            "    },\n" +
-                            "    \"Slika\": {\n" +
-                            "      \"stringValue\": \""+ Slika +"\"\n" +
-                            "    }\n" +
-                            "  }\n" +
-                            "}";
-
-                    RequestBody requestBody = RequestBody.create(json, JSON);
-
-                    OkHttpClient client = new OkHttpClient();
-
-                    Request request = new Request.Builder().addHeader("Authorization", auth).addHeader("Accept", "application/json").addHeader("Content-Type", "application/json").patch(requestBody).url(url).build();
-
-                    client.newCall(request).enqueue(new Callback() {
-                        @Override
-                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                            Toast.makeText(AdminPitanje.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/" + IDseta + "/Pitanje" + brojPitanja;
+                        if(!getIntent().getStringExtra("IDDETALJNO").equals("0")){
+                            url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/" + IDseta + "/" + getIntent().getStringExtra("IDDETALJNO") +"/Pitanja/Pitanje" + brojPitanja;
                         }
 
-                        @Override
-                        public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
-                            if(response.isSuccessful()){
-                                AdminPitanje.this.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(AdminPitanje.this, "Pitanje je dodano!", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(AdminPitanje.this, EditiranjePitanja.class);
-                                        intent.putExtra("ADMIN", "Izmjene");
-                                        intent.putExtra("KATEGORIJA", getIntent().getStringExtra("KATEGORIJA"));
-                                        intent.putExtra("IDKATEGORIJE", getIntent().getStringExtra("IDKATEGORIJE"));
-                                        intent.putExtra("IDSETA", getIntent().getStringExtra("IDSETA"));
-                                        intent.putExtra("IDDETALJNO", getIntent().getStringExtra("IDDETALJNO"));
-                                        startActivity(intent);
-                                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                                        finish();
-                                    }
-                                });
+                        String auth = "Bearer " + task.getResult().getToken();
+
+                        String json = "{\n" +
+                                "  \"fields\": {\n" +
+                                "    \"Pitanje\": {\n" +
+                                "      \"stringValue\": \""+ txtPitanjeAdmin.getText() +"\"\n" +
+                                "    },\n" +
+                                "    \"Odgovor1\": {\n" +
+                                "      \"stringValue\": \""+ txtOdgovor1Admin.getText() +"\"\n" +
+                                "    },\n" +
+                                "    \"Odgovor2\": {\n" +
+                                "      \"stringValue\": \""+ txtOdgovor2Admin.getText() +"\"\n" +
+                                "    },\n" +
+                                "    \"Odgovor3\": {\n" +
+                                "      \"stringValue\": \""+ txtOdgovor3Admin.getText() +"\"\n" +
+                                "    },\n" +
+                                "    \"TocanOdgovor\": {\n" +
+                                "      \"integerValue\": "+ spinnerTocanOdgovorAdmin.getSelectedItem().toString() +"\n" +
+                                "    },\n" +
+                                "    \"Slika\": {\n" +
+                                "      \"stringValue\": \""+ Slika +"\"\n" +
+                                "    }\n" +
+                                "  }\n" +
+                                "}";
+
+                        RequestBody requestBody = RequestBody.create(json, JSON);
+
+                        OkHttpClient client = new OkHttpClient();
+
+                        Request request = new Request.Builder().addHeader("Authorization", auth).addHeader("Accept", "application/json").addHeader("Content-Type", "application/json").patch(requestBody).url(url).build();
+
+                        client.newCall(request).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                                Toast.makeText(AdminPitanje.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-                        }
-                    });
+
+                            @Override
+                            public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
+                                if(response.isSuccessful()){
+                                    AdminPitanje.this.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(AdminPitanje.this, "Pitanje je dodano!", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(AdminPitanje.this, EditiranjePitanja.class);
+                                            intent.putExtra("ADMIN", "Izmjene");
+                                            intent.putExtra("KATEGORIJA", getIntent().getStringExtra("KATEGORIJA"));
+                                            intent.putExtra("IDKATEGORIJE", getIntent().getStringExtra("IDKATEGORIJE"));
+                                            intent.putExtra("IDSETA", getIntent().getStringExtra("IDSETA"));
+                                            intent.putExtra("IDDETALJNO", getIntent().getStringExtra("IDDETALJNO"));
+                                            startActivity(intent);
+                                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                                            finish();
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }
