@@ -165,8 +165,11 @@ public class AdminPitanje extends AppCompatActivity {
         }else{
 
             if(filePath!=null){
-                StorageReference photoRef = fStorage.getReferenceFromUrl(Objects.requireNonNull(getIntent().getStringExtra("SLIKA")));
-                photoRef.delete();
+
+                if(!Objects.equals(getIntent().getStringExtra("SLIKA"), "")){
+                    StorageReference photoRef = fStorage.getReferenceFromUrl(Objects.requireNonNull(getIntent().getStringExtra("SLIKA")));
+                    photoRef.delete();
+                }
 
                 String Kategorija1 = getIntent().getStringExtra("IDKATEGORIJE");
                 String IDseta1 = getIntent().getStringExtra("IDSETA");
@@ -188,11 +191,7 @@ public class AdminPitanje extends AppCompatActivity {
                                                     String Kategorija = getIntent().getStringExtra("IDKATEGORIJE");
                                                     String IDseta = getIntent().getStringExtra("IDSETA");
                                                     String Pitanje = getIntent().getStringExtra("NAME");
-                                                    String Slika = getIntent().getStringExtra("SLIKA");
 
-                                                    if(urlNoveSlike!=null){
-                                                        Slika = urlNoveSlike;
-                                                    }
 
                                                     String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/" + IDseta + "/" + Pitanje;
                                                     if(!getIntent().getStringExtra("IDDETALJNO").equals("0")){
@@ -219,7 +218,7 @@ public class AdminPitanje extends AppCompatActivity {
                                                             "      \"integerValue\": "+ spinnerTocanOdgovorAdmin.getSelectedItem().toString() +"\n" +
                                                             "    },\n" +
                                                             "    \"Slika\": {\n" +
-                                                            "      \"stringValue\": \""+ Slika +"\"\n" +
+                                                            "      \"stringValue\": \""+ urlNoveSlike +"\"\n" +
                                                             "    }\n" +
                                                             "  }\n" +
                                                             "}";
@@ -273,12 +272,15 @@ public class AdminPitanje extends AppCompatActivity {
                     public void onComplete(@NonNull Task<GetTokenResult> task) {
                         if (task.isSuccessful()) {
 
-                            String Pitanje = getIntent().getStringExtra("NAME");
-                            String Slika = getIntent().getStringExtra("SLIKA");
+                            String Slika = "";
 
-                            if(urlNoveSlike!=null){
-                                Slika = urlNoveSlike;
+                            if(!Objects.equals(getIntent().getStringExtra("SLIKA"), "")){
+                                Slika = getIntent().getStringExtra("SLIKA");
                             }
+
+                            String Pitanje = getIntent().getStringExtra("NAME");
+
+
 
                             String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija1 + "/" + IDseta1 + "/" + Pitanje;
                             if(!getIntent().getStringExtra("IDDETALJNO").equals("0")){
