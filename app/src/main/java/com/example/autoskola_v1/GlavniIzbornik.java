@@ -181,6 +181,10 @@ public class GlavniIzbornik extends AppCompatActivity implements NavigationView.
                 startActivity(new Intent(GlavniIzbornik.this,PromjenaPodataka.class));
                 break;
 
+            case R.id.navUpute:
+                startActivity(new Intent(GlavniIzbornik.this, Upute.class));
+                break;
+
             case R.id.navAdmin:
                 startActivity(new Intent(GlavniIzbornik.this, AdminBiranjeKategorije.class));
                 break;

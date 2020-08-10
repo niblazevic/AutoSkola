@@ -11,10 +11,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdminPitanje"></activity>
-        <activity android:name=".EditiranjePitanja" />
-        <activity android:name=".AdminBiranjeKategorije" />
-        <activity android:name=".AdminIzbornik" />
+        <activity android:name=".Upute" android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".AdminPitanje"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".EditiranjePitanja"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AdminBiranjeKategorije"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AdminIzbornik"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DetaljnoRezultati"
             android:screenOrientation="portrait" />
