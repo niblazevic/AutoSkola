@@ -900,7 +900,7 @@ public class Ispit extends AppCompatActivity {
                 }
 
 
-                if(!ListaPitanja.get(redniBrojPitanja).getSlika().equals("")){
+                    if(!ListaPitanja.get(redniBrojPitanja).getSlika().equals("")){
 
                     imgSlikaIspit.setVisibility(View.VISIBLE);
 
@@ -911,6 +911,9 @@ public class Ispit extends AppCompatActivity {
                             btnPrethodnoPitanje.setEnabled(true);
                             btnSljedecePitanje.setEnabled(true);
                             btnZavrsiIspit.setEnabled(true);
+                            if(redniBrojPitanja == ListaPitanja.size() - 1){
+                                btnSljedecePitanje.setEnabled(false);
+                            }
                         }
 
                         @Override
@@ -924,10 +927,9 @@ public class Ispit extends AppCompatActivity {
                     btnPrethodnoPitanje.setEnabled(true);
                     btnSljedecePitanje.setEnabled(true);
                     btnZavrsiIspit.setEnabled(true);
-                }
-
-                if(redniBrojPitanja == ListaPitanja.size() - 1){
-                    btnSljedecePitanje.setEnabled(false);
+                        if(redniBrojPitanja == ListaPitanja.size() - 1){
+                            btnSljedecePitanje.setEnabled(false);
+                        }
                 }
             }
         }
@@ -1239,11 +1241,6 @@ public class Ispit extends AppCompatActivity {
         }
     }
 
-    public static int dpToPx(int dp, Context context) {
-        float density = context.getResources().getDisplayMetrics().density;
-        return Math.round((float) dp * density);
-    }
-
     private void headerUcitavanje() {
         DocumentReference documentReference = fStore.collection("users").document(fAuth.getCurrentUser().getUid());
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
@@ -1254,7 +1251,6 @@ public class Ispit extends AppCompatActivity {
             }
         });
     }
-
     @Override
     public void onBackPressed(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
