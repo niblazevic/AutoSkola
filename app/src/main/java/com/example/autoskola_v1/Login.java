@@ -133,8 +133,8 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 final EditText resetEmail = new EditText(v.getContext());
                 AlertDialog.Builder dijalogZaPromjenuSifre = new AlertDialog.Builder(v.getContext());
-                dijalogZaPromjenuSifre.setTitle("Promjena sifre?");
-                dijalogZaPromjenuSifre.setMessage("Upisi svoj email kako bi primio link za promjenu sifre!");
+                dijalogZaPromjenuSifre.setTitle("Promjena šifre?");
+                dijalogZaPromjenuSifre.setMessage("Upiši svoj email kako bi primio link za promjenu šifre!");
                 dijalogZaPromjenuSifre.setView(resetEmail);
 
                 dijalogZaPromjenuSifre.setPositiveButton("Da", new DialogInterface.OnClickListener() {
@@ -153,7 +153,7 @@ public class Login extends AppCompatActivity {
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(Login.this, "Link za promjenu sifre nije poslan!" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Login.this, "Link za promjenu šifre nije poslan!" + e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
