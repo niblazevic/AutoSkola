@@ -86,9 +86,12 @@ public class TeorijaPitanja extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
 
         if(String.valueOf(getIntent().getStringExtra("IDDETALJNO")).equals("0")){
-            query = fStore.collection("Pitanja").document(String.valueOf(getIntent().getStringExtra("IDKATEGORIJE"))).collection(String.valueOf(getIntent().getStringExtra("IDSETA")));
+            query = fStore.collection("Pitanja").document(String.valueOf(getIntent()
+                    .getStringExtra("IDKATEGORIJE"))).collection(String.valueOf(getIntent().getStringExtra("IDSETA")));
         }else{
-            query = fStore.collection("Pitanja").document(String.valueOf(getIntent().getStringExtra("IDKATEGORIJE"))).collection(String.valueOf(getIntent().getStringExtra("IDSETA"))).document(String.valueOf(getIntent().getStringExtra("IDDETALJNO"))).collection("Pitanja");
+            query = fStore.collection("Pitanja").document(String.valueOf(getIntent()
+                    .getStringExtra("IDKATEGORIJE"))).collection(String.valueOf(getIntent().getStringExtra("IDSETA")))
+                    .document(String.valueOf(getIntent().getStringExtra("IDDETALJNO"))).collection("Pitanja");
         }
 
 

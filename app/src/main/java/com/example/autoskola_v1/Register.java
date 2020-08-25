@@ -115,12 +115,12 @@ public class Register extends AppCompatActivity {
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Log.d("TAG", "Uspijeh: Korisnicki profil je napravljen za " + userID);
+                                    Toast.makeText(Register.this, "Korisnički profil je napravljen!", Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.d("TAG", "Greska: " + e.toString());
+                                    Toast.makeText(Register.this, "Greška: " + e.toString(), Toast.LENGTH_SHORT).show();
                                 }
                             });
 

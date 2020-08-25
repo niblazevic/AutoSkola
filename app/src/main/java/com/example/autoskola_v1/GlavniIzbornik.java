@@ -69,7 +69,6 @@ public class GlavniIzbornik extends AppCompatActivity implements NavigationView.
     View headerView;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,12 +106,11 @@ public class GlavniIzbornik extends AppCompatActivity implements NavigationView.
         Menu menu = navigationView.getMenu();
         MenuItem admin = menu.findItem(R.id.navAdmin);
 
-        if(!Objects.equals(Objects.requireNonNull(fAuth.getCurrentUser()).getEmail(), "nblaevi7@gmail.com")){
+        if (!Objects.equals(Objects.requireNonNull(fAuth.getCurrentUser()).getEmail(), "nblaevi7@gmail.com")) {
             admin.setVisible(false);
-        }else{
+        } else {
             admin.setVisible(true);
         }
-
 
         navigationView.setNavigationItemSelectedListener(this);
         headerView = navigationView.getHeaderView(0);
@@ -124,42 +122,42 @@ public class GlavniIzbornik extends AppCompatActivity implements NavigationView.
         btnTeorijaPropisi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GlavniIzbornik.this,TeorijaPropisi.class);
+                Intent intent = new Intent(GlavniIzbornik.this, TeorijaPropisi.class);
                 startActivity(intent);
             }
         });
         btnTeorijaPrvaPomoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GlavniIzbornik.this,TeorijaPrvaPomoc.class));
+                startActivity(new Intent(GlavniIzbornik.this, TeorijaPrvaPomoc.class));
             }
         });
         btnVjezbePropisi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GlavniIzbornik.this,VjezbePropisi.class));
+                startActivity(new Intent(GlavniIzbornik.this, VjezbePropisi.class));
             }
         });
         btnVjezbePrvaPomoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GlavniIzbornik.this,VjezbePrvaPomoc.class));
+                startActivity(new Intent(GlavniIzbornik.this, VjezbePrvaPomoc.class));
             }
         });
         btnIspit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GlavniIzbornik.this,Ispit.class));
+                startActivity(new Intent(GlavniIzbornik.this, Ispit.class));
             }
         });
         btnRezultati.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GlavniIzbornik.this,Rezultati.class));
+                startActivity(new Intent(GlavniIzbornik.this, Rezultati.class));
             }
         });
 
-        }
+    }
 
     private void headerUcitavanje() {
         DocumentReference documentReference = fStore.collection("users").document(Objects.requireNonNull(fAuth.getCurrentUser()).getUid());
@@ -175,10 +173,10 @@ public class GlavniIzbornik extends AppCompatActivity implements NavigationView.
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-        switch (menuItem.getItemId()){
+        switch (menuItem.getItemId()) {
 
             case R.id.navPromjenaPodataka:
-                startActivity(new Intent(GlavniIzbornik.this,PromjenaPodataka.class));
+                startActivity(new Intent(GlavniIzbornik.this, PromjenaPodataka.class));
                 break;
 
             case R.id.navUpute:
@@ -191,7 +189,7 @@ public class GlavniIzbornik extends AppCompatActivity implements NavigationView.
 
             case R.id.navOdjava:
                 fAuth.signOut();
-                Intent intent = new Intent(GlavniIzbornik.this,Login.class);
+                Intent intent = new Intent(GlavniIzbornik.this, Login.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                 Pair[] pairs = new Pair[3];

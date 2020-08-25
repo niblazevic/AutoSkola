@@ -143,7 +143,7 @@ public class Ispit extends AppCompatActivity {
                                                              @Override
                                                              public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                                                                 switch (item.getItemId()){
+                                                                 switch (item.getItemId()) {
                                                                      case R.id.navPitanje1:
                                                                          redniBrojPitanja = 1;
                                                                          promjeniPitanje(true);
@@ -437,12 +437,17 @@ public class Ispit extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                         if (task.isSuccessful()) {
                                             DocumentSnapshot snapshot = task.getResult();
-                                            if(finalI < 14){
-                                                Pitanje pitanje = new Pitanje(snapshot.getString("Pitanje") + " (2 boda)", snapshot.getString("Odgovor1"), snapshot.getString("Odgovor2"), snapshot.getString("Odgovor3"), snapshot.getLong("TocanOdgovor"), snapshot.getString("Slika"));
+                                            if (finalI < 14) {
+                                                Pitanje pitanje = new Pitanje(snapshot.getString("Pitanje") + " (2 boda)",
+                                                        snapshot.getString("Odgovor1"), snapshot.getString("Odgovor2"),
+                                                        snapshot.getString("Odgovor3"), snapshot.getLong("TocanOdgovor"),
+                                                        snapshot.getString("Slika"));
                                                 ListaPitanja.add(pitanje);
-                                                ListaOdgovora.add(new OznaceniOdgovoriIspit("0", "0", "0", 2));
-                                            }else{
-
+                                                ListaOdgovora.add(new OznaceniOdgovoriIspit("0",
+                                                        "0",
+                                                        "0",
+                                                        2));
+                                            } else {
                                                 Pitanje pitanje = new Pitanje(snapshot.getString("Pitanje") + " (3 boda)", snapshot.getString("Odgovor1"), snapshot.getString("Odgovor2"), snapshot.getString("Odgovor3"), snapshot.getLong("TocanOdgovor"), snapshot.getString("Slika"));
                                                 ListaPitanja.add(pitanje);
                                                 ListaOdgovora.add(new OznaceniOdgovoriIspit("0", "0", "0", 3));
@@ -679,7 +684,6 @@ public class Ispit extends AppCompatActivity {
         });
 
 
-
         documentReference = fStore.collection("Pitanja").document("Kat1").collection("BrojPitanja").document("PropustanjeVozilaItd");
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -756,11 +760,11 @@ public class Ispit extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                         if (task.isSuccessful()) {
                                             DocumentSnapshot snapshot = task.getResult();
-                                            if(finalI < 4){
+                                            if (finalI < 4) {
                                                 Pitanje pitanje = new Pitanje(snapshot.getString("Pitanje") + " (4 boda)", snapshot.getString("Odgovor1"), snapshot.getString("Odgovor2"), snapshot.getString("Odgovor3"), snapshot.getLong("TocanOdgovor"), snapshot.getString("Slika"));
                                                 ListaPitanja.add(pitanje);
                                                 ListaOdgovora.add(new OznaceniOdgovoriIspit("0", "0", "0", 4));
-                                            }else{
+                                            } else {
                                                 Pitanje pitanje = new Pitanje(snapshot.getString("Pitanje") + " (3 boda)", snapshot.getString("Odgovor1"), snapshot.getString("Odgovor2"), snapshot.getString("Odgovor3"), snapshot.getLong("TocanOdgovor"), snapshot.getString("Slika"));
                                                 ListaPitanja.add(pitanje);
                                                 ListaOdgovora.add(new OznaceniOdgovoriIspit("0", "0", "0", 3));
@@ -787,10 +791,10 @@ public class Ispit extends AppCompatActivity {
         btnOdgovor2Ispit.setText(ListaPitanja.get(0).getOdgovor2());
 
 
-        if(ListaPitanja.get(redniBrojPitanja).getOdgovor3().equals("0")){
+        if (ListaPitanja.get(redniBrojPitanja).getOdgovor3().equals("0")) {
             btnOdgovor3Ispit.setVisibility(View.GONE);
             btnOdgovor3Ispit.setEnabled(false);
-        }else{
+        } else {
             btnOdgovor3Ispit.setVisibility(View.VISIBLE);
             btnOdgovor3Ispit.setEnabled(true);
             btnOdgovor3Ispit.setText(ListaPitanja.get(0).getOdgovor3());
@@ -813,8 +817,8 @@ public class Ispit extends AppCompatActivity {
 
                 }
             });
-        }else{
-            if(brojac == 0){
+        } else {
+            if (brojac == 0) {
                 imgSlikaIspit.setVisibility(View.GONE);
                 ucitavanje.makniUcitavanje();
                 startTimer();
@@ -826,28 +830,29 @@ public class Ispit extends AppCompatActivity {
     }
 
     private void promjeniPitanje(boolean dugme) {
-        if(dugme){
-            if (redniBrojPitanja > 0){
+        if (dugme) {
+            if (redniBrojPitanja > 0) {
                 ucitavanje.pokreniUcitavanje();
                 redniBrojPitanja--;
 
                 navigationView.getMenu().getItem(redniBrojPitanja).setChecked(true);
-                navigationView.getMenu().getItem(redniBrojPitanja).setTitle(Html.fromHtml("<font color='#ffcc00'>"+ (redniBrojPitanja + 1) +". pitanje</font>"));
+                navigationView.getMenu().getItem(redniBrojPitanja).setTitle(Html
+                        .fromHtml("<font color='#ffcc00'>" + (redniBrojPitanja + 1) + ". pitanje</font>"));
 
                 txtBrojPitanjaIspit.setText("Pitanje: " + (redniBrojPitanja + 1) + "/" + ListaPitanja.size());
                 playAnim(txtTekstPitanjaIspit, 0, 0);
                 playAnim(btnOdgovor1Ispit, 0, 1);
                 playAnim(btnOdgovor2Ispit, 0, 2);
-                if(ListaPitanja.get(redniBrojPitanja).getOdgovor3().equals("0")){
+                if (ListaPitanja.get(redniBrojPitanja).getOdgovor3().equals("0")) {
                     btnOdgovor3Ispit.setVisibility(View.GONE);
                     btnOdgovor3Ispit.setEnabled(false);
-                }else{
+                } else {
                     btnOdgovor3Ispit.setEnabled(true);
                     btnOdgovor3Ispit.setVisibility(View.VISIBLE);
                     playAnim(btnOdgovor3Ispit, 0, 3);
                 }
 
-                if(!ListaPitanja.get(redniBrojPitanja).getSlika().equals("")){
+                if (!ListaPitanja.get(redniBrojPitanja).getSlika().equals("")) {
 
                     imgSlikaIspit.setVisibility(View.VISIBLE);
 
@@ -865,7 +870,7 @@ public class Ispit extends AppCompatActivity {
 
                         }
                     });
-                }else{
+                } else {
                     imgSlikaIspit.setVisibility(View.GONE);
                     ucitavanje.makniUcitavanje();
                     btnPrethodnoPitanje.setEnabled(true);
@@ -873,34 +878,34 @@ public class Ispit extends AppCompatActivity {
                     btnZavrsiIspit.setEnabled(true);
                 }
 
-                if(redniBrojPitanja == 0){
+                if (redniBrojPitanja == 0) {
                     btnPrethodnoPitanje.setEnabled(false);
                 }
             }
-        }else{
-            if (redniBrojPitanja < ListaPitanja.size() - 1){
+        } else {
+            if (redniBrojPitanja < ListaPitanja.size() - 1) {
                 redniBrojPitanja++;
                 ucitavanje.pokreniUcitavanje();
 
                 navigationView.getMenu().getItem(redniBrojPitanja).setChecked(true);
-                navigationView.getMenu().getItem(redniBrojPitanja).setTitle(Html.fromHtml("<font color='#ffcc00'>"+ (redniBrojPitanja + 1) +". pitanje</font>"));
+                navigationView.getMenu().getItem(redniBrojPitanja).setTitle(Html.fromHtml("<font color='#ffcc00'>" + (redniBrojPitanja + 1) + ". pitanje</font>"));
 
                 txtBrojPitanjaIspit.setText("Pitanje: " + (redniBrojPitanja + 1) + "/" + ListaPitanja.size());
 
                 playAnim(txtTekstPitanjaIspit, 0, 0);
                 playAnim(btnOdgovor1Ispit, 0, 1);
                 playAnim(btnOdgovor2Ispit, 0, 2);
-                if(ListaPitanja.get(redniBrojPitanja).getOdgovor3().equals("0")){
+                if (ListaPitanja.get(redniBrojPitanja).getOdgovor3().equals("0")) {
                     btnOdgovor3Ispit.setVisibility(View.GONE);
                     btnOdgovor3Ispit.setEnabled(false);
-                }else{
+                } else {
                     btnOdgovor3Ispit.setVisibility(View.VISIBLE);
                     btnOdgovor3Ispit.setEnabled(true);
                     playAnim(btnOdgovor3Ispit, 0, 3);
                 }
 
 
-                    if(!ListaPitanja.get(redniBrojPitanja).getSlika().equals("")){
+                if (!ListaPitanja.get(redniBrojPitanja).getSlika().equals("")) {
 
                     imgSlikaIspit.setVisibility(View.VISIBLE);
 
@@ -911,7 +916,7 @@ public class Ispit extends AppCompatActivity {
                             btnPrethodnoPitanje.setEnabled(true);
                             btnSljedecePitanje.setEnabled(true);
                             btnZavrsiIspit.setEnabled(true);
-                            if(redniBrojPitanja == ListaPitanja.size() - 1){
+                            if (redniBrojPitanja == ListaPitanja.size() - 1) {
                                 btnSljedecePitanje.setEnabled(false);
                             }
                         }
@@ -921,15 +926,15 @@ public class Ispit extends AppCompatActivity {
 
                         }
                     });
-                }else{
+                } else {
                     imgSlikaIspit.setVisibility(View.GONE);
                     ucitavanje.makniUcitavanje();
                     btnPrethodnoPitanje.setEnabled(true);
                     btnSljedecePitanje.setEnabled(true);
                     btnZavrsiIspit.setEnabled(true);
-                        if(redniBrojPitanja == ListaPitanja.size() - 1){
-                            btnSljedecePitanje.setEnabled(false);
-                        }
+                    if (redniBrojPitanja == ListaPitanja.size() - 1) {
+                        btnSljedecePitanje.setEnabled(false);
+                    }
                 }
             }
         }
@@ -941,22 +946,22 @@ public class Ispit extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                if(value == 0){
-                    switch (viewBroj){
+                if (value == 0) {
+                    switch (viewBroj) {
                         case 0:
-                            ((TextView)view).setText(ListaPitanja.get(redniBrojPitanja).getPitanje());
+                            ((TextView) view).setText(ListaPitanja.get(redniBrojPitanja).getPitanje());
                             break;
 
                         case 1:
-                            ((Button)view).setText(ListaPitanja.get(redniBrojPitanja).getOdgovor1());
+                            ((Button) view).setText(ListaPitanja.get(redniBrojPitanja).getOdgovor1());
                             break;
 
                         case 2:
-                            ((Button)view).setText(ListaPitanja.get(redniBrojPitanja).getOdgovor2());
+                            ((Button) view).setText(ListaPitanja.get(redniBrojPitanja).getOdgovor2());
                             break;
 
                         case 3:
-                            ((Button)view).setText(ListaPitanja.get(redniBrojPitanja).getOdgovor3());
+                            ((Button) view).setText(ListaPitanja.get(redniBrojPitanja).getOdgovor3());
                             break;
                     }
                     playAnim(view, 1, viewBroj);
@@ -974,15 +979,15 @@ public class Ispit extends AppCompatActivity {
         countDownTimer = new CountDownTimer(2700000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                txtVrijemeIspit.setText(""+String.format(FORMAT,
+                txtVrijemeIspit.setText("" + String.format(FORMAT,
                         TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
                                 TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
                                 TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
             }
-
             @Override
             public void onFinish() {
+                provjeraOdgovora();
                 zavrsetakIspita();
             }
         };
@@ -990,42 +995,39 @@ public class Ispit extends AppCompatActivity {
     }
 
     private void oznacavanjeOdgovora(String oznaceniOdgovor) {
-        if(oznaceniOdgovor.equals("1")){
-            if(ListaOdgovora.get(redniBrojPitanja).getOznakaOdgovor1().equals("0")){
+        if (oznaceniOdgovor.equals("1")) {
+            if (ListaOdgovora.get(redniBrojPitanja).getOznakaOdgovor1().equals("0")) {
                 ListaOdgovora.get(redniBrojPitanja).setOznakaOdgovor1("1");
                 btnOdgovor1Ispit.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ffcc00")));
                 int img = R.drawable.oznaceno_icon;
                 btnOdgovor1Ispit.setCompoundDrawablesWithIntrinsicBounds(img, 0, 0, 0);
-            }
-            else{
+            } else {
                 ListaOdgovora.get(redniBrojPitanja).setOznakaOdgovor1("0");
                 btnOdgovor1Ispit.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#132131")));
                 int img = R.drawable.neoznaceno_icon;
                 btnOdgovor1Ispit.setCompoundDrawablesWithIntrinsicBounds(img, 0, 0, 0);
             }
         }
-        if(oznaceniOdgovor.equals("2")){
-            if(ListaOdgovora.get(redniBrojPitanja).getOznakaOdgovor2().equals("0")){
+        if (oznaceniOdgovor.equals("2")) {
+            if (ListaOdgovora.get(redniBrojPitanja).getOznakaOdgovor2().equals("0")) {
                 ListaOdgovora.get(redniBrojPitanja).setOznakaOdgovor2("1");
                 btnOdgovor2Ispit.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ffcc00")));
                 int img = R.drawable.oznaceno_icon;
                 btnOdgovor2Ispit.setCompoundDrawablesWithIntrinsicBounds(img, 0, 0, 0);
-            }
-            else{
+            } else {
                 ListaOdgovora.get(redniBrojPitanja).setOznakaOdgovor2("0");
                 btnOdgovor2Ispit.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#132131")));
                 int img = R.drawable.neoznaceno_icon;
                 btnOdgovor2Ispit.setCompoundDrawablesWithIntrinsicBounds(img, 0, 0, 0);
             }
         }
-        if(oznaceniOdgovor.equals("3")){
-            if(ListaOdgovora.get(redniBrojPitanja).getOznakaOdgovor3().equals("0")){
+        if (oznaceniOdgovor.equals("3")) {
+            if (ListaOdgovora.get(redniBrojPitanja).getOznakaOdgovor3().equals("0")) {
                 ListaOdgovora.get(redniBrojPitanja).setOznakaOdgovor3("1");
                 btnOdgovor3Ispit.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ffcc00")));
                 int img = R.drawable.oznaceno_icon;
                 btnOdgovor3Ispit.setCompoundDrawablesWithIntrinsicBounds(img, 0, 0, 0);
-            }
-            else{
+            } else {
                 ListaOdgovora.get(redniBrojPitanja).setOznakaOdgovor3("0");
                 btnOdgovor3Ispit.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#132131")));
                 int img = R.drawable.neoznaceno_icon;
@@ -1035,29 +1037,29 @@ public class Ispit extends AppCompatActivity {
     }
 
     private void ucitavanjeOdgovora() {
-        if(ListaOdgovora.get(redniBrojPitanja).getOznakaOdgovor1().equals("1")){
+        if (ListaOdgovora.get(redniBrojPitanja).getOznakaOdgovor1().equals("1")) {
             btnOdgovor1Ispit.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ffcc00")));
             int img = R.drawable.oznaceno_icon;
             btnOdgovor1Ispit.setCompoundDrawablesWithIntrinsicBounds(img, 0, 0, 0);
-        }else{
+        } else {
             btnOdgovor1Ispit.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#132131")));
             int img = R.drawable.neoznaceno_icon;
             btnOdgovor1Ispit.setCompoundDrawablesWithIntrinsicBounds(img, 0, 0, 0);
         }
-        if(ListaOdgovora.get(redniBrojPitanja).getOznakaOdgovor2().equals("1")){
+        if (ListaOdgovora.get(redniBrojPitanja).getOznakaOdgovor2().equals("1")) {
             btnOdgovor2Ispit.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ffcc00")));
             int img = R.drawable.oznaceno_icon;
             btnOdgovor2Ispit.setCompoundDrawablesWithIntrinsicBounds(img, 0, 0, 0);
-        }else{
+        } else {
             btnOdgovor2Ispit.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#132131")));
             int img = R.drawable.neoznaceno_icon;
             btnOdgovor2Ispit.setCompoundDrawablesWithIntrinsicBounds(img, 0, 0, 0);
         }
-        if(ListaOdgovora.get(redniBrojPitanja).getOznakaOdgovor3().equals("1")){
+        if (ListaOdgovora.get(redniBrojPitanja).getOznakaOdgovor3().equals("1")) {
             btnOdgovor3Ispit.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ffcc00")));
             int img = R.drawable.oznaceno_icon;
             btnOdgovor3Ispit.setCompoundDrawablesWithIntrinsicBounds(img, 0, 0, 0);
-        }else{
+        } else {
             btnOdgovor3Ispit.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#132131")));
             int img = R.drawable.neoznaceno_icon;
             btnOdgovor3Ispit.setCompoundDrawablesWithIntrinsicBounds(img, 0, 0, 0);
@@ -1075,28 +1077,35 @@ public class Ispit extends AppCompatActivity {
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
 
-                    if(!task.getResult().exists()){
+                    if (!task.getResult().exists()) {
                         Map<String, Integer> rezultatBroj = new HashMap<>();
                         rezultatBroj.put("Broj", 1);
                         documentReference.set(rezultatBroj);
-                    }else{
+                    } else {
                         brojRjesenihIspita = task.getResult().getLong("Broj").intValue() + 1;
                     }
 
 
                     Map<String, String> brojIspita = new HashMap<>();
 
-                    DocumentReference documentReference1 = fStore.collection("users").document(userID).collection("RjeseniIspiti").document("Ispit" + brojRjesenihIspita);
+                    DocumentReference documentReference1 = fStore.collection("users")
+                            .document(userID).collection("RjeseniIspiti")
+                            .document("Ispit" + brojRjesenihIspita);
+
                     brojIspita.put("Naziv", brojRjesenihIspita + ". ispit");
                     brojIspita.put("BrojIspita", "Ispit" + brojRjesenihIspita);
                     documentReference1.set(brojIspita);
 
                     Map<String, Object> rezultat = new HashMap<>();
 
-                    for(int i = 0; i < 38; i++){
-                        documentReference1 = fStore.collection("users").document(userID).collection("RjeseniIspiti").document("Ispit" + brojRjesenihIspita).collection("PitanjaIOdgovori").document("PitanjeIOdgovori" + (i + 1));
+                    for (int i = 0; i < 38; i++) {
+                        documentReference1 = fStore.collection("users")
+                                .document(userID).collection("RjeseniIspiti")
+                                .document("Ispit" + brojRjesenihIspita)
+                                .collection("PitanjaIOdgovori")
+                                .document("PitanjeIOdgovori" + (i + 1));
 
                         rezultat.put("Pitanje", ListaPitanja.get(i).getPitanje());
                         rezultat.put("Odgovor1", ListaPitanja.get(i).getOdgovor1());
@@ -1108,7 +1117,7 @@ public class Ispit extends AppCompatActivity {
                         rezultat.put("OznakaOdgovor2", ListaOdgovora.get(i).getOznakaOdgovor2());
                         rezultat.put("OznakaOdgovor3", ListaOdgovora.get(i).getOznakaOdgovor3());
                         rezultat.put("BrojBodova", ListaOdgovora.get(i).getBrojBodova());
-                        rezultat.put("RedniBroj", i+1);
+                        rezultat.put("RedniBroj", i + 1);
 
                         documentReference1.set(rezultat);
                         rezultat.clear();
@@ -1131,21 +1140,22 @@ public class Ispit extends AppCompatActivity {
                     documentReference1.set(rezultat);
 
 
-                            Map<String, Integer> rezultatBroj = new HashMap<>();
-                            rezultatBroj.put("Broj", brojRjesenihIspita);
-                            documentReference.set(rezultatBroj).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    ucitavanje.makniUcitavanje();
-                                    Intent intent = new Intent(Ispit.this, ProlaznostIspit.class);
-                                    intent.putExtra("BODOVI", BrojBodova + "/120");
-                                    intent.putExtra("BROJBODOVADOVOLJNO", brojBodovaDovoljno);
-                                    intent.putExtra("POSTOTAK", formattedPercent);
-                                    intent.putExtra("PROLAZNOST", prolaznost);
-                                    intent.putExtra("RASKRIZJA", tocnostRaskrizja);
-                                    startActivity(intent);
-                                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                                }});
+                    Map<String, Integer> rezultatBroj = new HashMap<>();
+                    rezultatBroj.put("Broj", brojRjesenihIspita);
+                    documentReference.set(rezultatBroj).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            ucitavanje.makniUcitavanje();
+                            Intent intent = new Intent(Ispit.this, ProlaznostIspit.class);
+                            intent.putExtra("BODOVI", BrojBodova + "/120");
+                            intent.putExtra("BROJBODOVADOVOLJNO", brojBodovaDovoljno);
+                            intent.putExtra("POSTOTAK", formattedPercent);
+                            intent.putExtra("PROLAZNOST", prolaznost);
+                            intent.putExtra("RASKRIZJA", tocnostRaskrizja);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        }
+                    });
                 }
             }
         });
@@ -1154,7 +1164,7 @@ public class Ispit extends AppCompatActivity {
     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            switch (which){
+            switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
                     provjeraOdgovora();
                     zavrsetakIspita();
@@ -1169,12 +1179,12 @@ public class Ispit extends AppCompatActivity {
     DialogInterface.OnClickListener dialogClickListener2 = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            switch (which){
+            switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
                     countDownTimer.cancel();
                     Intent intent = new Intent(Ispit.this, GlavniIzbornik.class);
                     startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     break;
 
                 case DialogInterface.BUTTON_NEGATIVE:
@@ -1184,58 +1194,56 @@ public class Ispit extends AppCompatActivity {
     };
 
     private void provjeraOdgovora() {
-        for(int i = 0; i < ListaOdgovora.size(); i++){
+        for (int i = 0; i < ListaOdgovora.size(); i++) {
             OznaceniOdgovor = 0;
 
-            if(ListaOdgovora.get(i).getOznakaOdgovor1().equals("1")){
+            if (ListaOdgovora.get(i).getOznakaOdgovor1().equals("1")) {
                 OznaceniOdgovor = 1;
             }
-            if(ListaOdgovora.get(i).getOznakaOdgovor2().equals("1")){
-                if(OznaceniOdgovor == 1){
+            if (ListaOdgovora.get(i).getOznakaOdgovor2().equals("1")) {
+                if (OznaceniOdgovor == 1) {
                     OznaceniOdgovor = 12;
-                }
-                else{
+                } else {
                     OznaceniOdgovor = 2;
                 }
             }
-            if(ListaOdgovora.get(i).getOznakaOdgovor3().equals("1")){
-                if(OznaceniOdgovor == 1){
+            if (ListaOdgovora.get(i).getOznakaOdgovor3().equals("1")) {
+                if (OznaceniOdgovor == 1) {
                     OznaceniOdgovor = 13;
                 }
-                if(OznaceniOdgovor == 12){
+                if (OznaceniOdgovor == 12) {
                     OznaceniOdgovor = 123;
                 }
-                if(OznaceniOdgovor == 2){
+                if (OznaceniOdgovor == 2) {
                     OznaceniOdgovor = 23;
                 }
-                if(OznaceniOdgovor == 0){
+                if (OznaceniOdgovor == 0) {
                     OznaceniOdgovor = 3;
                 }
             }
 
-            if(ListaPitanja.get(i).getTocanOdgovor() == OznaceniOdgovor) {
+            if (ListaPitanja.get(i).getTocanOdgovor() == OznaceniOdgovor) {
                 BrojBodova = BrojBodova + ListaOdgovora.get(i).getBrojBodova();
-                if(ListaOdgovora.get(i).getBrojBodova() == 7){
+                if (ListaOdgovora.get(i).getBrojBodova() == 7) {
                     raskrizja++;
                 }
             }
         }
-
         BrojBodova1 = BrojBodova;
 
         DecimalFormat df = new DecimalFormat("##.##%");
         postotak = (BrojBodova1 / 120);
         formattedPercent = df.format(postotak);
 
-        if(BrojBodova > 107 && raskrizja == 4){
+        if (BrojBodova > 107 && raskrizja == 4) {
             brojBodovaDovoljno = "Broj bodova je dovoljan za prolaz!";
             prolaznost = "Ispit je položen!";
             tocnostRaskrizja = "Raskrižja su točno riješena!";
-        }else{
+        } else {
             brojBodovaDovoljno = "Broj bodova nije dovoljan za prolaz!";
             prolaznost = "Ispit nije položen!";
             tocnostRaskrizja = "Raskrižja nisu točno riješena!";
-            if(raskrizja == 4){
+            if (raskrizja == 4) {
                 tocnostRaskrizja = "Raskrižja su točno riješena, ali broj bodova je premali za prolazak!";
             }
         }
@@ -1251,8 +1259,9 @@ public class Ispit extends AppCompatActivity {
             }
         });
     }
+
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Jeste li sigurni da želite napustiti ispit?").setPositiveButton("Da", dialogClickListener2)
                 .setNegativeButton("Ne", dialogClickListener2).show();

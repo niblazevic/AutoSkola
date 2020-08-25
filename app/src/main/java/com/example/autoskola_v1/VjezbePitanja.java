@@ -162,7 +162,10 @@ public class VjezbePitanja extends AppCompatActivity {
 
         if(String.valueOf(getIntent().getStringExtra("IDDETALJNO")).equals("0")){
 
-            DocumentReference documentReference = fStore.collection("Pitanja").document(String.valueOf(getIntent().getStringExtra("IDKATEGORIJE"))).collection("BrojPitanja").document(String.valueOf(getIntent().getStringExtra("IDSETA")));
+            DocumentReference documentReference = fStore.collection("Pitanja")
+                    .document(String.valueOf(getIntent().getStringExtra("IDKATEGORIJE")))
+                    .collection("BrojPitanja")
+                    .document(String.valueOf(getIntent().getStringExtra("IDSETA")));
             documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -184,14 +187,23 @@ public class VjezbePitanja extends AppCompatActivity {
                             }else {
                                 for (int i = 1; i <= velinicnaSeta; i++) {
 
-                                    DocumentReference documentReference1 = fStore.collection("Pitanja").document(String.valueOf(getIntent().getStringExtra("IDKATEGORIJE"))).collection(String.valueOf(getIntent().getStringExtra("IDSETA"))).document("Pitanje" + i);
+                                    DocumentReference documentReference1 = fStore.collection("Pitanja")
+                                            .document(String.valueOf(getIntent()
+                                            .getStringExtra("IDKATEGORIJE")))
+                                            .collection(String.valueOf(getIntent().getStringExtra("IDSETA")))
+                                            .document("Pitanje" + i);
                                     documentReference1.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                             if (task.isSuccessful()) {
                                                 DocumentSnapshot snapshot = task.getResult();
                                                 assert snapshot != null;
-                                                Pitanje pitanje = new Pitanje(snapshot.getString("Pitanje"), snapshot.getString("Odgovor1"), snapshot.getString("Odgovor2"), snapshot.getString("Odgovor3"), Objects.requireNonNull(snapshot.getLong("TocanOdgovor")), snapshot.getString("Slika"));
+                                                Pitanje pitanje = new Pitanje(snapshot.getString("Pitanje"),
+                                                        snapshot.getString("Odgovor1"),
+                                                        snapshot.getString("Odgovor2"),
+                                                        snapshot.getString("Odgovor3"),
+                                                        Objects.requireNonNull(snapshot.getLong("TocanOdgovor")),
+                                                        snapshot.getString("Slika"));
                                                 ListaPitanja.add(pitanje);
                                                 setPitanje();
                                             }
@@ -212,14 +224,22 @@ public class VjezbePitanja extends AppCompatActivity {
                                     i--;
                                 }else{
                                     ListaBrojeva.add(temp);
-                                    DocumentReference documentReference1 = fStore.collection("Pitanja").document(String.valueOf(getIntent().getStringExtra("IDKATEGORIJE"))).collection(String.valueOf(getIntent().getStringExtra("IDSETA"))).document("Pitanje" + ListaBrojeva.get(i));
+                                    DocumentReference documentReference1 = fStore.collection("Pitanja")
+                                            .document(String.valueOf(getIntent().getStringExtra("IDKATEGORIJE")))
+                                            .collection(String.valueOf(getIntent().getStringExtra("IDSETA")))
+                                            .document("Pitanje" + ListaBrojeva.get(i));
                                     documentReference1.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                             if(task.isSuccessful()){
                                                 DocumentSnapshot snapshot = task.getResult();
                                                 assert snapshot != null;
-                                                Pitanje pitanje = new Pitanje(snapshot.getString("Pitanje"), snapshot.getString("Odgovor1"), snapshot.getString("Odgovor2"), snapshot.getString("Odgovor3"), Objects.requireNonNull(snapshot.getLong("TocanOdgovor")), snapshot.getString("Slika"));
+                                                Pitanje pitanje = new Pitanje(snapshot.getString("Pitanje"),
+                                                        snapshot.getString("Odgovor1"),
+                                                        snapshot.getString("Odgovor2"),
+                                                        snapshot.getString("Odgovor3"),
+                                                        Objects.requireNonNull(snapshot.getLong("TocanOdgovor")),
+                                                        snapshot.getString("Slika"));
                                                 ListaPitanja.add(pitanje);
                                                 setPitanje();
                                             }
@@ -316,7 +336,6 @@ public class VjezbePitanja extends AppCompatActivity {
             btnOdgovor3.setVisibility(View.VISIBLE);
             btnOdgovor3.setText(ListaPitanja.get(0).getOdgovor3());
         }
-
         redniBrojPitanja = 0;
 
         if(!ListaPitanja.get(0).getSlika().equals("")){
@@ -326,18 +345,12 @@ public class VjezbePitanja extends AppCompatActivity {
                     ucitavanje.makniUcitavanje();
                     startTimer();
                 }
-
                 @Override
                 public void onError(Exception e) {
-
                 }
             });
         }else{
-            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams)imgPitanja.getLayoutParams();
-            params.width = dpToPx(0, imgPitanja.getContext());
-            params.height = dpToPx(0, imgPitanja.getContext());
-            imgPitanja.setLayoutParams(params);
-            imgPitanja.setImageResource(0);
+            imgPitanja.setVisibility(View.GONE);
             if(provjeraTimera == 0){
                 ucitavanje.makniUcitavanje();
                 startTimer();
@@ -357,6 +370,7 @@ public class VjezbePitanja extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                oznacavanjeOdgovora("0", btnOdgovori.getRootView());
                 promjeniPitanje();
             }
         };
@@ -468,7 +482,7 @@ public class VjezbePitanja extends AppCompatActivity {
        }
     }
 
-    private void promjeniPitanje() {
+    private void promjeniPitanje(){
         ucitavanje.pokreniUcitavanje();
         if (redniBrojPitanja < ListaPitanja.size() - 1){
 
@@ -507,12 +521,7 @@ public class VjezbePitanja extends AppCompatActivity {
                     });
 
             }else{
-
-                ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams)imgPitanja.getLayoutParams();
-                params.width = dpToPx(0, imgPitanja.getContext());
-                params.height = dpToPx(0, imgPitanja.getContext());
-                imgPitanja.setLayoutParams(params);
-                imgPitanja.setImageResource(0);
+                imgPitanja.setVisibility(View.GONE);
                 ucitavanje.makniUcitavanje();
                 startTimer();
             }
@@ -547,7 +556,9 @@ public class VjezbePitanja extends AppCompatActivity {
     }
 
     private void playAnim(final View view, final int value, final int viewBroj) {
-        view.animate().alpha(value).scaleX(value).scaleY(value).setDuration(150).setStartDelay(100).setInterpolator(new DecelerateInterpolator()).setListener(new AnimatorListenerAdapter() {
+        view.animate().alpha(value).scaleX(value).scaleY(value).setDuration(150)
+                .setStartDelay(100)
+                .setInterpolator(new DecelerateInterpolator()).setListener(new AnimatorListenerAdapter() {
 
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -630,11 +641,6 @@ public class VjezbePitanja extends AppCompatActivity {
             btnOdgovor2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#132131")));
             btnOdgovor3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#132131")));
         }
-    }
-
-    public static int dpToPx(int dp, Context context) {
-        float density = context.getResources().getDisplayMetrics().density;
-        return Math.round((float) dp * density);
     }
 
     @Override
