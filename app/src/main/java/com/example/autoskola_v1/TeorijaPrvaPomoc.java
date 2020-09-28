@@ -30,7 +30,7 @@ public class TeorijaPrvaPomoc extends AppCompatActivity {
         txtOpis = findViewById(R.id.txtOpis);
 
         if(getIntent().getStringExtra("ADMIN")!=null) {
-            txtOpis.setText("Odaberi kategoriju za " + getIntent().getStringExtra("ADMIN") + ":");
+            txtOpis.setText("Odaberi set za " + getIntent().getStringExtra("ADMIN") + ":");
         }
 
         btn1_22Teorija.setOnClickListener(new View.OnClickListener() {

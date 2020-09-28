@@ -144,9 +144,11 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
                     String Kategorija = getIntent().getStringExtra("IDKATEGORIJE");
                     String IDseta = getIntent().getStringExtra("IDSETA");
 
-                    String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/BrojPitanja/" + IDseta;
+                    String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/"
+                            + Kategorija + "/BrojPitanja/" + IDseta;
                     if(!getIntent().getStringExtra("IDDETALJNO").equals("0")){
-                        url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/BrojPitanja/" + IDseta + "/Pitanja/" + getIntent().getStringExtra("IDDETALJNO");
+                        url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/"
+                                + Kategorija + "/BrojPitanja/" + IDseta + "/Pitanja/" + getIntent().getStringExtra("IDDETALJNO");
                     }
 
                     String auth = "Bearer " + task.getResult().getToken();
@@ -171,7 +173,9 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
                                     @Override
                                     public void run() {
                                         try {
-                                            brojPitanja = new JSONObject(myResponse).getJSONObject("fields").getJSONObject("BrojPitanja").getString("integerValue");
+                                            brojPitanja = new JSONObject(myResponse).getJSONObject("fields")
+                                                    .getJSONObject("BrojPitanja")
+                                                    .getString("integerValue");
                                             updateanjeBroja(brojPitanja, getName);
 
                                         }catch (JSONException err){
@@ -197,9 +201,11 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
                     String Kategorija = getIntent().getStringExtra("IDKATEGORIJE");
                     String IDseta = getIntent().getStringExtra("IDSETA");
 
-                    String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/BrojPitanja/" + IDseta;
+                    String url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/"
+                            + Kategorija + "/BrojPitanja/" + IDseta;
                     if(!getIntent().getStringExtra("IDDETALJNO").equals("0")){
-                        url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/" + Kategorija + "/BrojPitanja/" + IDseta + "/Pitanja/" + getIntent().getStringExtra("IDDETALJNO");
+                        url = "https://firestore.googleapis.com/v1/projects/autoskolav1/databases/(default)/documents/Pitanja/"
+                                + Kategorija + "/BrojPitanja/" + IDseta + "/Pitanja/" + getIntent().getStringExtra("IDDETALJNO");
                     }
 
                     String auth = "Bearer " + task.getResult().getToken();
@@ -218,7 +224,10 @@ public class EditiranjePitanja extends AppCompatActivity implements AdminAdapter
 
                     OkHttpClient client = new OkHttpClient();
 
-                    final Request request = new Request.Builder().addHeader("Authorization", auth).addHeader("Accept", "application/json").addHeader("Content-Type", "application/json").patch(requestBody).url(url).build();
+                    final Request request = new Request.Builder().addHeader("Authorization", auth)
+                            .addHeader("Accept", "application/json")
+                            .addHeader("Content-Type", "application/json")
+                            .patch(requestBody).url(url).build();
 
                     client.newCall(request).enqueue(new Callback() {
                         @Override

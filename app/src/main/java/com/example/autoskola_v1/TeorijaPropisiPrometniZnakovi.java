@@ -32,7 +32,7 @@ public class TeorijaPropisiPrometniZnakovi extends AppCompatActivity {
         txtKategorijaZnakovi = findViewById(R.id.txtKategorijaZnakovi);
 
         if(getIntent().getStringExtra("ADMIN")!=null){
-            txtKategorijaZnakovi.setText("Odaberi kategoriju znakova za " + getIntent().getStringExtra("ADMIN") + ":");
+            txtKategorijaZnakovi.setText("Odaberi set znakova za " + getIntent().getStringExtra("ADMIN") + ":");
         }
 
         btnZnakoviIzricitihNaredbiTeorija.setOnClickListener(new View.OnClickListener() {

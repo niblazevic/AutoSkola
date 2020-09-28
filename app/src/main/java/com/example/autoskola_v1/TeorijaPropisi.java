@@ -42,7 +42,7 @@ public class TeorijaPropisi extends AppCompatActivity {
         txtKategorija = findViewById(R.id.txtKategorija);
 
         if(getIntent().getStringExtra("ADMIN")!=null) {
-            txtKategorija.setText("Odaberi kategoriju za " + getIntent().getStringExtra("ADMIN") + ":");
+            txtKategorija.setText("Odaberi set za " + getIntent().getStringExtra("ADMIN") + ":");
         }
 
 
